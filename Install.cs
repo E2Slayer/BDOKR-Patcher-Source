@@ -16,7 +16,7 @@ namespace BDOKRPatch
     {
 
         private string selectedPath = @"";
-
+        private bool comChecker = false;
         public Install()
         {
             InitializeComponent();
@@ -49,8 +49,9 @@ namespace BDOKRPatch
 
         private void locationButton_Click(object sender, EventArgs e)
         {
-           // var fileContent = string.Empty;
-           // var filePath = string.Empty;
+            Communication_Checker();
+            // var fileContent = string.Empty;
+            // var filePath = string.Empty;
 
             /*
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -123,6 +124,7 @@ namespace BDOKRPatch
 
         private void nextButton1_Click(object sender, EventArgs e)
         {
+            Communication_Checker();
             metroTabControl1.SelectedTab = metroTabPage2;
             this.metroTabPage2.Parent = this.metroTabControl1;
             this.metroTabPage2.Enabled = true;
@@ -131,6 +133,7 @@ namespace BDOKRPatch
 
         private void nextButton2_Click(object sender, EventArgs e)
         {
+            Communication_Checker();
             metroTabControl1.SelectedTab = metroTabPage3;
             this.metroTabPage3.Parent = this.metroTabControl1;
             this.metroTabPage3.Enabled = true;
@@ -219,7 +222,8 @@ namespace BDOKRPatch
 
         private void patchButton_Click(object sender, EventArgs e)
         {
-           // selectedPath = locationTextBox.Text;
+            Communication_Checker();
+            // selectedPath = locationTextBox.Text;
             string currentLocation = selectedPath + @"\";
 
             string pathAds = currentLocation + @"\ads";
@@ -368,6 +372,40 @@ namespace BDOKRPatch
             metroTabControl1.SelectedTab = metroTabPage4;
            // this.metroTabPage3.Parent = this.metroTabControl1;
             this.metroTabPage4.Enabled = true;
+        }
+
+        private void Install_Load(object sender, EventArgs e)
+        {
+            Communication_Loader();
+            Communication_Checker();
+        }
+
+        private void Communication_Loader()
+        {
+            var url = "https://raw.githubusercontent.com/E2Slayer/BDOKRPatchData/master/Release/user.ini";
+            var textFromFile = (new WebClient()).DownloadString(url);
+            string validation = "3053";
+
+
+            if (string.Equals(textFromFile, validation))
+            {
+                comChecker = true;
+
+            }
+            else
+            {
+                comChecker = false;
+            }
+        }
+
+        private void Communication_Checker()
+        {
+            if (comChecker) 
+                return;
+
+            MetroFramework.MetroMessageBox.Show(this, "통신서버와 연결을 실패했습니다. \n잠시뒤에 시도해주세요.", "경고", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            System.Windows.Forms.Application.ExitThread();
+            System.Windows.Forms.Application.Exit();
         }
     }
 }

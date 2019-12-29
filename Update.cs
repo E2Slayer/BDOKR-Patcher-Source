@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoUpdaterDotNET;
@@ -22,21 +24,41 @@ namespace BDOKRPatch
         }
 
         private bool isUpdated = false;
-
+        
         private void Update_Load(object sender, EventArgs e)
         {
 
             logTextBox.AppendText(Environment.NewLine);
-            logTextBox.AppendText("업데이트 서버와 통신시작 " + DateTime.Now.ToString("h:mm:ss tt"));
+            logTextBox.AppendText("통신서버와 연결중... ");
+            // Use for disable or enable 
+            var url = "https://raw.githubusercontent.com/E2Slayer/BDOKRPatchData/master/Release/user.ini";
+            var textFromFile = (new WebClient()).DownloadString(url);
+            string validation = "3053";
 
-            AutoUpdater.Start("https://raw.githubusercontent.com/E2Slayer/BDOKRPatchData/master/Release/config.xml");
-            //AutoUpdater.Mandatory = false;
-            AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
-            // AutoUpdater.DownloadPath = Environment.CurrentDirectory;
-             
-            //AutoUpdater.UpdateFormSize = new System.Drawing.Size(800, 600);
-            // AutoUpdater.UpdateMode = Mode.Forced;
-            // System.Windows.Forms.MessageBox.Show("done", "Message");
+            //Thread.Sleep(1000);
+
+            if (string.Equals(textFromFile, validation))
+            {
+                logTextBox.AppendText(Environment.NewLine);
+                logTextBox.AppendText("통신서버와 연결성공 ! ");
+
+                logTextBox.AppendText(Environment.NewLine);
+                logTextBox.AppendText("업데이트 서버와 통신시작 " + DateTime.Now.ToString("h:mm:ss tt"));
+
+                AutoUpdater.Start("https://raw.githubusercontent.com/E2Slayer/BDOKRPatchData/master/Release/config.xml");
+                AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
+            }
+            else
+            {
+                logTextBox.AppendText(Environment.NewLine);
+                logTextBox.AppendText("통신서버와 연결실패 ");
+
+                MetroFramework.MetroMessageBox.Show(this, "통신서버와 연결을 실패했습니다. \n잠시뒤에 시도해주세요.", "경고", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+
+
         }
 
         private void AutoUpdaterOnCheckForUpdateEvent(UpdateInfoEventArgs args)
@@ -45,12 +67,14 @@ namespace BDOKRPatch
             {
                 if (args.IsUpdateAvailable)
                 {
+                    logTextBox.AppendText(Environment.NewLine);
+                    logTextBox.AppendText($"새로운 버전 {args.CurrentVersion} 발견 ");
                     DialogResult dialogResult;
                     if (args.Mandatory)
                     {
                         dialogResult =
                             MessageBox.Show(
-                                $@"새로운버전 {args.CurrentVersion}이 발견되었습니다. \n현재 사용하시는 버전은 {args.InstalledVersion}입니다. \n확인(OK)를 누르시면 업데이트를 진행합니다.", @"업데이트 가능",
+                                $"새로운버전 {args.CurrentVersion}이 발견되었습니다. \n현재 사용하시는 버전은 {args.InstalledVersion}입니다. \n확인(OK)를 누르시면 업데이트를 진행합니다.", @"업데이트 가능",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information);
                     }
@@ -58,7 +82,7 @@ namespace BDOKRPatch
                     {
                         dialogResult =
                             MessageBox.Show(
-                                $@"새로운버전 {args.CurrentVersion}이 발견되었습니다. \n현재 사용하시는 버전은 {args.InstalledVersion}입니다. \n업데이트 하시겠습니까?", @"업데이트 가능",
+                                $"새로운버전 {args.CurrentVersion}이 발견되었습니다. \n현재 사용하시는 버전은 {args.InstalledVersion}입니다. \n업데이트 하시겠습니까?", @"업데이트 가능",
                                 MessageBoxButtons.YesNo,
                                 MessageBoxIcon.Information);
                     }
@@ -88,6 +112,8 @@ namespace BDOKRPatch
                     }
                     else
                     {
+                        logTextBox.AppendText(Environment.NewLine);
+                        logTextBox.AppendText("업데이트 취소");
                         isUpdated = true;
                     }
                 }

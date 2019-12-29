@@ -96,7 +96,8 @@
             this.Controls.Add(this.logTextBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Update";
-            this.Text = "업데이트 체크";
+            this.Style = MetroFramework.MetroColorStyle.Silver;
+            this.Text = "BDO KR Patcher 업데이트 체크";
             this.Load += new System.EventHandler(this.Update_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
