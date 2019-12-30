@@ -137,7 +137,7 @@ namespace BDOKRPatch
             metroTabControl1.SelectedTab = metroTabPage3;
             this.metroTabPage3.Parent = this.metroTabControl1;
             this.metroTabPage3.Enabled = true;
-            this.FontComboBox.SelectedIndex = 0;
+            this.FontComboBox.SelectedIndex = 1;
         }
 
         private void FontComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -153,7 +153,7 @@ namespace BDOKRPatch
             switch (FontComboBox.SelectedIndex)
             {
                 case 0: // yoongo thic
-                    fontPreview.Image = Properties.Resources.yanggothic;
+                    fontPreview.Image = Properties.Resources.ridi;
                     break;
                 case 1: // nanum square
                     fontPreview.Image = Properties.Resources.nanumsquare;
@@ -274,10 +274,10 @@ namespace BDOKRPatch
 
             Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/languagedata_en_toKR.PAZ", currentLocation + @"ads\languagedata_en_toKR.PAZ", "languagedata_en_toKR.PAZ");
             Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/languagedata_en.loc", currentLocation + @"ads\languagedata_en.loc", "languagedata_en.loc");
-            Download(@"https://raw.githubusercontent.com/E2Slayer/BDOKRPatchData/master/KRPVersion", currentLocation + @"ads\KRPVersion", "KRPVersion.chk");
+          //  Download(@"https://raw.githubusercontent.com/E2Slayer/BDOKRPatchData/master/KRPVersion", currentLocation + @"ads\KRPVersion", "KRPVersion.chk");
 
             /*
-             *             "윤고딕체 (한국검사폰트)",
+             *             "리디바탕",
             "나눔스퀘어체 Bold",
             "나눔바른고딕체",
             "양진체",
@@ -288,8 +288,8 @@ namespace BDOKRPatch
             string fontURL = @"";
              switch (FontComboBox.SelectedIndex)
              {
-                 case 0: // yoongo thic
-                    fontURL = @"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/font/YoonGothic.ttf";
+                 case 0: // ridi
+                    fontURL = @"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/font/RIDIBatang.ttf";
                      break;
                  case 1: // nanum square
                     fontURL = @"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/font/NanumSquareB.ttf";
@@ -376,8 +376,18 @@ namespace BDOKRPatch
 
         private void Install_Load(object sender, EventArgs e)
         {
+            metroTabControl1.SelectedIndex = 0;
             Communication_Loader();
             Communication_Checker();
+
+            using (WebClient client = new WebClient())
+            {
+                var htmlData = client.DownloadData("https://raw.githubusercontent.com/E2Slayer/BDOKRPatchData/master/Release/changelog.txt");
+                var htmlCode = Encoding.UTF8.GetString(htmlData);
+                patchNoteTextBox.Text = htmlCode;
+            }
+
+            
         }
 
         private void Communication_Loader()
@@ -406,6 +416,98 @@ namespace BDOKRPatch
             MetroFramework.MetroMessageBox.Show(this, "통신서버와 연결을 실패했습니다. \n잠시뒤에 시도해주세요.", "경고", MessageBoxButtons.OK, MessageBoxIcon.Error);
             System.Windows.Forms.Application.ExitThread();
             System.Windows.Forms.Application.Exit();
+        }
+
+        private void uninstallButton_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult =
+                MessageBox.Show(
+                    $"BDO 한글패치된 파일들을 삭제합니다. \n 모든 패치파일들은 원상복귀가 됩니다. \n진행하시겠습니까? ", @"한글패치 삭제",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Information);
+            if (dialogResult.Equals(DialogResult.Yes) || dialogResult.Equals(DialogResult.OK))
+            {
+                try
+                {
+                    string currentLocation = selectedPath + @"\";
+                   // string pathAds = currentLocation + @"\ads";
+
+
+                    System.IO.DirectoryInfo di = new DirectoryInfo(currentLocation + @"prestringtable\");
+                    if (Directory.Exists(currentLocation + @"prestringtable\"))
+                    {
+                        logTextBox.AppendText(Environment.NewLine);
+                        logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] prestringtable 폴더 삭제중...");
+
+
+                        foreach (FileInfo file in di.GetFiles())
+                        {
+                            file.Delete();
+                        }
+
+                        foreach (DirectoryInfo dir in di.GetDirectories())
+                        {
+                            dir.Delete(true);
+                        }
+
+                    }
+                    else
+                    {
+                        logTextBox.AppendText(Environment.NewLine);
+                        logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] prestringtable 폴더가 존재하지 않습니다.");
+
+                    }
+
+
+                    
+                    Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/languagedata_en.loc", currentLocation + @"ads\languagedata_en.loc", "languagedata_en.loc");
+                    logTextBox.AppendText(Environment.NewLine);
+                    logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] locale 원본파일 다운로드중...");
+
+
+                    if (File.Exists(currentLocation + @"ads\languagedata_en_backup.loc"))
+                    {
+                        File.Delete(currentLocation + @"ads\languagedata_en_backup.loc");
+                        logTextBox.AppendText(Environment.NewLine);
+                        logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] 백업파일 삭제중...");
+                    }
+
+
+                    if (File.Exists(currentLocation + @"ads\languagedata_en_toKR.PAZ"))
+                    {
+                        File.Delete(currentLocation + @"ads\languagedata_en_toKR.PAZ");
+                        logTextBox.AppendText(Environment.NewLine);
+                        logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] 번역 PAZ파일 삭제중...");
+                    }
+
+
+
+                    logTextBox.AppendText(Environment.NewLine);
+                    logTextBox.AppendText("[알림 - " + DateTime.Now.ToString("h:mm:ss tt") + "] 모든 작업이 완료되었습니다");
+                    logTextBox.AppendText(Environment.NewLine);
+                    logTextBox.AppendText("===============================================================");
+                    logTextBox.AppendText(Environment.NewLine);
+                    logTextBox.AppendText("한글패치 삭제 완료. 프로그램을 종료하셔도됩니다.");
+                    logTextBox.AppendText(Environment.NewLine);
+                    logTextBox.AppendText("===============================================================");
+
+                }
+                catch (Exception exception)
+                {
+                    logTextBox.AppendText(Environment.NewLine);
+                    logTextBox.AppendText("[에러 - " + DateTime.Now.ToString("h:mm:ss tt") + "] 에러로 인한 한글패치 삭제 취소");
+                    MessageBox.Show(exception.Message, exception.GetType().ToString(), MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                logTextBox.AppendText(Environment.NewLine);
+                logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] 한글패치 삭제 취소");
+            }
+
+
+
         }
     }
 }

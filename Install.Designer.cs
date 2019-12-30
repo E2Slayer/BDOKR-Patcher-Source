@@ -50,26 +50,26 @@
             this.metroLabel8 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
-            this.fontPreview = new System.Windows.Forms.PictureBox();
             this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
             this.FontComboBox = new MetroFramework.Controls.MetroComboBox();
             this.metroTabPage4 = new MetroFramework.Controls.MetroTabPage();
-            this.metroLabel13 = new MetroFramework.Controls.MetroLabel();
             this.logTextBox = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
             this.patchButton = new MetroFramework.Controls.MetroButton();
             this.metroPanel2 = new MetroFramework.Controls.MetroPanel();
-            this.metroLabel10 = new MetroFramework.Controls.MetroLabel();
+            this.patchNoteTextBox = new MetroFramework.Controls.MetroLabel();
             this.metroLabel9 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel11 = new MetroFramework.Controls.MetroLabel();
+            this.uninstallButton = new MetroFramework.Controls.MetroButton();
+            this.fontPreview = new System.Windows.Forms.PictureBox();
             this.metroTabControl1.SuspendLayout();
             this.metroTabPage1.SuspendLayout();
             this.metroPanel1.SuspendLayout();
             this.metroTabPage2.SuspendLayout();
             this.metroTabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fontPreview)).BeginInit();
             this.metroTabPage4.SuspendLayout();
             this.metroPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fontPreview)).BeginInit();
             this.SuspendLayout();
             // 
             // metroTabControl1
@@ -80,7 +80,7 @@
             this.metroTabControl1.Controls.Add(this.metroTabPage4);
             this.metroTabControl1.Location = new System.Drawing.Point(16, 73);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 0;
+            this.metroTabControl1.SelectedIndex = 3;
             this.metroTabControl1.Size = new System.Drawing.Size(579, 390);
             this.metroTabControl1.Style = MetroFramework.MetroColorStyle.Silver;
             this.metroTabControl1.TabIndex = 0;
@@ -173,7 +173,7 @@
             this.metroLabel1.AutoSize = true;
             this.metroLabel1.Location = new System.Drawing.Point(0, 0);
             this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(451, 513);
+            this.metroLabel1.Size = new System.Drawing.Size(451, 494);
             this.metroLabel1.TabIndex = 3;
             this.metroLabel1.Text = resources.GetString("metroLabel1.Text");
             // 
@@ -300,9 +300,9 @@
             this.metroTabPage3.Controls.Add(this.metroLabel8);
             this.metroTabPage3.Controls.Add(this.metroLabel7);
             this.metroTabPage3.Controls.Add(this.metroLabel6);
-            this.metroTabPage3.Controls.Add(this.fontPreview);
             this.metroTabPage3.Controls.Add(this.metroLabel5);
             this.metroTabPage3.Controls.Add(this.FontComboBox);
+            this.metroTabPage3.Controls.Add(this.fontPreview);
             this.metroTabPage3.Enabled = false;
             this.metroTabPage3.HorizontalScrollbarBarColor = true;
             this.metroTabPage3.HorizontalScrollbarHighlightOnWheel = false;
@@ -356,15 +356,6 @@
             this.metroLabel6.TabIndex = 5;
             this.metroLabel6.Text = "폰트 프리뷰";
             // 
-            // fontPreview
-            // 
-            this.fontPreview.Image = global::BDOKRPatch.Properties.Resources.yanggothic;
-            this.fontPreview.Location = new System.Drawing.Point(13, 122);
-            this.fontPreview.Name = "fontPreview";
-            this.fontPreview.Size = new System.Drawing.Size(239, 177);
-            this.fontPreview.TabIndex = 4;
-            this.fontPreview.TabStop = false;
-            // 
             // metroLabel5
             // 
             this.metroLabel5.AutoSize = true;
@@ -379,7 +370,7 @@
             this.FontComboBox.FormattingEnabled = true;
             this.FontComboBox.ItemHeight = 23;
             this.FontComboBox.Items.AddRange(new object[] {
-            "윤고딕체 (한국검사폰트)",
+            "리디바탕체",
             "나눔스퀘어체 Bold",
             "나눔바른고딕체",
             "양진체",
@@ -394,7 +385,7 @@
             // 
             // metroTabPage4
             // 
-            this.metroTabPage4.Controls.Add(this.metroLabel13);
+            this.metroTabPage4.Controls.Add(this.uninstallButton);
             this.metroTabPage4.Controls.Add(this.logTextBox);
             this.metroTabPage4.Controls.Add(this.metroLabel12);
             this.metroTabPage4.Controls.Add(this.patchButton);
@@ -412,16 +403,6 @@
             this.metroTabPage4.VerticalScrollbarBarColor = true;
             this.metroTabPage4.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage4.VerticalScrollbarSize = 10;
-            // 
-            // metroLabel13
-            // 
-            this.metroLabel13.AutoSize = true;
-            this.metroLabel13.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel13.Location = new System.Drawing.Point(464, 326);
-            this.metroLabel13.Name = "metroLabel13";
-            this.metroLabel13.Size = new System.Drawing.Size(88, 19);
-            this.metroLabel13.TabIndex = 9;
-            this.metroLabel13.Text = "Version 1.0.2";
             // 
             // logTextBox
             // 
@@ -481,7 +462,7 @@
             // metroPanel2
             // 
             this.metroPanel2.AutoScroll = true;
-            this.metroPanel2.Controls.Add(this.metroLabel10);
+            this.metroPanel2.Controls.Add(this.patchNoteTextBox);
             this.metroPanel2.HorizontalScrollbar = true;
             this.metroPanel2.HorizontalScrollbarBarColor = true;
             this.metroPanel2.HorizontalScrollbarHighlightOnWheel = false;
@@ -495,14 +476,14 @@
             this.metroPanel2.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel2.VerticalScrollbarSize = 10;
             // 
-            // metroLabel10
+            // patchNoteTextBox
             // 
-            this.metroLabel10.AutoSize = true;
-            this.metroLabel10.Location = new System.Drawing.Point(0, 0);
-            this.metroLabel10.Name = "metroLabel10";
-            this.metroLabel10.Size = new System.Drawing.Size(270, 95);
-            this.metroLabel10.TabIndex = 2;
-            this.metroLabel10.Text = "V1.0.1 - V1.0.2 - 12/29/2019\r\n자동업데이트 추가, 그외 버그 및 성능개선\r\n\r\nV1.0.0 - 12/28/2019\r\nBDO" +
+            this.patchNoteTextBox.AutoSize = true;
+            this.patchNoteTextBox.Location = new System.Drawing.Point(0, 0);
+            this.patchNoteTextBox.Name = "patchNoteTextBox";
+            this.patchNoteTextBox.Size = new System.Drawing.Size(270, 95);
+            this.patchNoteTextBox.TabIndex = 2;
+            this.patchNoteTextBox.Text = "V1.0.1 - V1.0.2 - 12/29/2019\r\n자동업데이트 추가, 그외 버그 및 성능개선\r\n\r\nV1.0.0 - 12/28/2019\r\nBDO" +
     " NA/EU 한글패치 Release";
             // 
             // metroLabel9
@@ -526,6 +507,26 @@
             this.metroLabel11.TabIndex = 1;
             this.metroLabel11.Text = "Developed by E2Slayer, Kesk";
             // 
+            // uninstallButton
+            // 
+            this.uninstallButton.FontSize = MetroFramework.MetroButtonSize.Medium;
+            this.uninstallButton.Location = new System.Drawing.Point(402, 307);
+            this.uninstallButton.Name = "uninstallButton";
+            this.uninstallButton.Size = new System.Drawing.Size(150, 38);
+            this.uninstallButton.TabIndex = 10;
+            this.uninstallButton.Text = "한글패치 삭제";
+            this.uninstallButton.UseSelectable = true;
+            this.uninstallButton.Click += new System.EventHandler(this.uninstallButton_Click);
+            // 
+            // fontPreview
+            // 
+            this.fontPreview.Image = global::BDOKRPatch.Properties.Resources.ridi;
+            this.fontPreview.Location = new System.Drawing.Point(13, 122);
+            this.fontPreview.Name = "fontPreview";
+            this.fontPreview.Size = new System.Drawing.Size(239, 177);
+            this.fontPreview.TabIndex = 4;
+            this.fontPreview.TabStop = false;
+            // 
             // Install
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -547,11 +548,11 @@
             this.metroTabPage2.PerformLayout();
             this.metroTabPage3.ResumeLayout(false);
             this.metroTabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fontPreview)).EndInit();
             this.metroTabPage4.ResumeLayout(false);
             this.metroTabPage4.PerformLayout();
             this.metroPanel2.ResumeLayout(false);
             this.metroPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fontPreview)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -582,7 +583,7 @@
         private MetroFramework.Controls.MetroLabel metroLabel6;
         private MetroFramework.Controls.MetroTabPage metroTabPage4;
         private MetroFramework.Controls.MetroPanel metroPanel2;
-        private MetroFramework.Controls.MetroLabel metroLabel10;
+        private MetroFramework.Controls.MetroLabel patchNoteTextBox;
         private MetroFramework.Controls.MetroLabel metroLabel9;
         private MetroFramework.Controls.MetroButton patchButton;
         private MetroFramework.Controls.MetroLabel metroLabel11;
@@ -591,6 +592,6 @@
         private MetroFramework.Controls.MetroLabel metroLabel8;
         private MetroFramework.Controls.MetroLabel metroLabel7;
         private MetroFramework.Controls.MetroButton nextButton3;
-        private MetroFramework.Controls.MetroLabel metroLabel13;
+        private MetroFramework.Controls.MetroButton uninstallButton;
     }
 }

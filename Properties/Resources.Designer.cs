@@ -103,9 +103,9 @@ namespace BDOKRPatch.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap yanggothic {
+        internal static System.Drawing.Bitmap ridi {
             get {
-                object obj = ResourceManager.GetObject("yanggothic", resourceCulture);
+                object obj = ResourceManager.GetObject("ridi", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

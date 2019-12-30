@@ -146,10 +146,10 @@
   <ItemGroup>
     <Content Include="BlackDesert.ico" />
     <Content Include="Resources\BlackDesert.ico" />
+    <None Include="Resources\ridi.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\yangjin.png" />
-    <None Include="Resources\yanggothic.png" />
     <None Include="Resources\nanumsquare.png" />
     <None Include="Resources\bing.png" />
     <None Include="Resources\bemin.png" />
