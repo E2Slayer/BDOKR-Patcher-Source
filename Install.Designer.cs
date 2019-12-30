@@ -74,7 +74,6 @@
             // 
             // metroTabControl1
             // 
-
             this.metroTabControl1.Controls.Add(this.metroTabPage1);
             this.metroTabControl1.Controls.Add(this.metroTabPage2);
             this.metroTabControl1.Controls.Add(this.metroTabPage3);
@@ -422,7 +421,7 @@
             this.metroLabel13.Name = "metroLabel13";
             this.metroLabel13.Size = new System.Drawing.Size(88, 19);
             this.metroLabel13.TabIndex = 9;
-            this.metroLabel13.Text = "Version 1.0.0";
+            this.metroLabel13.Text = "Version 1.0.2";
             // 
             // logTextBox
             // 
@@ -501,9 +500,10 @@
             this.metroLabel10.AutoSize = true;
             this.metroLabel10.Location = new System.Drawing.Point(0, 0);
             this.metroLabel10.Name = "metroLabel10";
-            this.metroLabel10.Size = new System.Drawing.Size(189, 38);
+            this.metroLabel10.Size = new System.Drawing.Size(270, 95);
             this.metroLabel10.TabIndex = 2;
-            this.metroLabel10.Text = "V1.0.0 - 12/28/2019\r\nBDO NA/EU 한글패치 Release";
+            this.metroLabel10.Text = "V1.0.1 - V1.0.2 - 12/29/2019\r\n자동업데이트 추가, 그외 버그 및 성능개선\r\n\r\nV1.0.0 - 12/28/2019\r\nBDO" +
+    " NA/EU 한글패치 Release";
             // 
             // metroLabel9
             // 

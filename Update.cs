@@ -35,7 +35,7 @@ namespace BDOKRPatch
             var textFromFile = (new WebClient()).DownloadString(url);
             string validation = "3053";
 
-            //Thread.Sleep(1000);
+     
 
             if (string.Equals(textFromFile, validation))
             {
@@ -44,7 +44,7 @@ namespace BDOKRPatch
 
                 logTextBox.AppendText(Environment.NewLine);
                 logTextBox.AppendText("업데이트 서버와 통신시작 " + DateTime.Now.ToString("h:mm:ss tt"));
-
+                
                 AutoUpdater.Start("https://raw.githubusercontent.com/E2Slayer/BDOKRPatchData/master/Release/config.xml");
                 AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
             }
@@ -119,10 +119,11 @@ namespace BDOKRPatch
                 }
                 else
                 {
-                    MessageBox.Show(@"현재 업데이트한 가능한버전이 없습니다. \n최신버전을 사용중이십니다.", @"업데이트 정보",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // MessageBox.Show("최신버전을 사용중이십니다.", @"업데이트 정보",MessageBoxButtons.OK, MessageBoxIcon.Information);
                     logTextBox.AppendText(Environment.NewLine);
-                    logTextBox.AppendText("최신버전 사용중");
+                    logTextBox.AppendText("업데이트 서버와 통신종료 - 이유: 최신버전");
+                    logTextBox.AppendText(Environment.NewLine);
+                    logTextBox.AppendText("최신버전 사용중입니다 !");
                     isUpdated = true;
                 }
             }
@@ -139,10 +140,21 @@ namespace BDOKRPatch
 
         private void metroButton1_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            var installForm = new Install();
-            installForm.Closed += (s, args) => this.Close();
-            installForm.Show();
+            if (isUpdated)
+            {
+                this.Hide();
+                var installForm = new Install();
+                installForm.Closed += (s, args) => this.Close();
+                installForm.Show();
+            }
+            else
+            {
+                MessageBox.Show(
+                    "업데이트가 실패했습니다. \n프로그램을 종료합니다.",
+                    @"업데이트 실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Windows.Forms.Application.ExitThread();
+                //System.Windows.Forms.Application.Exit();
+            }
         }
     }
 }
