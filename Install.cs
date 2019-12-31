@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -22,29 +23,6 @@ namespace BDOKRPatch
             InitializeComponent();
         }
 
-        private void disgreeRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (disgreeRadioButton.Checked)
-            {
-                nextButton1.Enabled = false;
-            }
-            else
-            {
-                nextButton1.Enabled = false;
-            }
-        }
-
-        private void AgreeRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (AgreeRadioButton.Checked)
-            {
-                nextButton1.Enabled = true;
-            }
-            else
-            {
-                nextButton1.Enabled = false;
-            }
-        }
 
 
         private void locationButton_Click(object sender, EventArgs e)
@@ -376,6 +354,13 @@ namespace BDOKRPatch
 
         private void Install_Load(object sender, EventArgs e)
         {
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+
+            FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
+
+            versionLabel.Text = "Version "+fileVersion.FileVersion;
+
+
             metroTabControl1.SelectedIndex = 0;
             Communication_Loader();
             Communication_Checker();
@@ -508,6 +493,12 @@ namespace BDOKRPatch
 
 
 
+        }
+
+        private void agreementText_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("BDO Korean Patch 설정에 오신것을 환영합니다.\r\n먼저, 진행하기전 주의사항을 읽어주세요.\r\n\r\nBlackDesert Online 의 Term of Use 따르면\r\n12.1.7. Modification of the Game Client\r\nThe User is only allowed to use third party programs affecting \r\nthe Game Client to the extent such programs do not significantly \r\naffect the gameplay and do not violate any provision of the Agreement. \r\nThe use of any such use third party program must be validated first by \r\nKakao Games Europe. For that purpose, the User should \r\ncontact customer support before installing \r\nand using such use third party program.\r\n라고 명시되어 있습니다.\r\n\r\n이 한글패치는 대화 및 언어 스크립트쪽만 변경하기때문에\r\n정지의 매우 희박하고 또한 그 전에 한글패치 정지 전례가 없었습니다만\r\n한글패치가 언제나 100% 안전한건 아닙니다.\r\n하지만, 99.9% 정도는 정지당할확률이 없다고 생각합니다.\r\n\r\n\r\n추후의 이 프로그램인하여 발생되는 \r\n모든 문제는 사용자 본인에게 있습니다.\r\n\r\nI, E2Slayer(Developer), shall not be responsible, \r\nnor have any liability whatsoever, \r\nany TOS violation under BlackdesertOnline\r\n\r\n", "Agreement", MessageBoxButtons.OK,MessageBoxIcon.Information);
+           // MetroFramework.MetroMessageBox.Show(this, "BDO Korean Patch 설정에 오신것을 환영합니다.\r\n먼저, 진행하기전 주의사항을 읽어주세요.\r\n\r\nBlackDesert Online 의 Term of Use 따르면\r\n12.1.7. Modification of the Game Client\r\nThe User is only allowed to use third party programs affecting \r\nthe Game Client to the extent such programs do not significantly \r\naffect the gameplay and do not violate any provision of the Agreement. \r\nThe use of any such use third party program must be validated first by \r\nKakao Games Europe. For that purpose, the User should \r\ncontact customer support before installing \r\nand using such use third party program.\r\n라고 명시되어 있습니다.\r\n\r\n이 한글패치는 대화 및 언어 스크립트쪽만 변경하기때문에\r\n정지의 매우 희박하고 또한 그 전에 한글패치 정지 전례가 없었습니다만\r\n한글패치로 인해서 정지를 먹으실 가능성은 언제나 존재합니다.\r\n\r\n\r\n추후의 이 프로그램인하여 발생되는 \r\n모든 문제는 사용자 본인에게 있습니다.\r\n\r\nI, E2Slayer(Developer), shall not be responsible, \r\nnor have any liability whatsoever, \r\nany TOS violation under BlackdesertOnline\r\n\r\n", "정보", MessageBoxButtons.OK, MessageBoxIcon.None);
         }
     }
 }

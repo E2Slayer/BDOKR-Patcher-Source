@@ -93,6 +93,26 @@ namespace BDOKRPatch.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap KRLogo {
+            get {
+                object obj = ResourceManager.GetObject("KRLogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap KRLogo2 {
+            get {
+                object obj = ResourceManager.GetObject("KRLogo2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap nanumsquare {
             get {
                 object obj = ResourceManager.GetObject("nanumsquare", resourceCulture);

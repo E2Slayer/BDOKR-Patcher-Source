@@ -117,34 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="metroLabel1.Text" xml:space="preserve">
-    <value>BDO Korean Patch 설정에 오신것을 환영합니다.
-먼저, 진행하기전 주의사항을 읽어주세요.
-
-BlackDesert Online 의 Term of Use 따르면
-12.1.7. Modification of the Game Client
-The User is only allowed to use third party programs affecting 
-the Game Client to the extent such programs do not significantly 
-affect the gameplay and do not violate any provision of the Agreement. 
-The use of any such use third party program must be validated first by 
-Kakao Games Europe. For that purpose, the User should 
-contact customer support before installing 
-and using such use third party program.
-라고 명시되어 있습니다.
-
-이 한글패치는 대화 및 언어 스크립트쪽만 변경하기때문에
-정지의 매우 희박하고 또한 그 전에 한글패치 정지 전례가 없었습니다만
-한글패치로 인해서 정지를 먹으실 가능성은 언제나 존재합니다.
-
-
-추후의 이 프로그램인하여 발생되는 
-모든 문제는 사용자 본인에게 있습니다.
-
-I, E2Slayer(Developer), shall not be responsible, 
-nor have any liability whatsoever, 
-any TOS violation under BlackdesertOnline
-</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

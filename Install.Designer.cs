@@ -31,12 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Install));
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.metroTabPage1 = new MetroFramework.Controls.MetroTabPage();
+            this.versionLabel = new MetroFramework.Controls.MetroLabel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.agreementText = new MetroFramework.Controls.MetroLabel();
             this.nextButton1 = new MetroFramework.Controls.MetroButton();
-            this.disgreeRadioButton = new MetroFramework.Controls.MetroRadioButton();
-            this.AgreeRadioButton = new MetroFramework.Controls.MetroRadioButton();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
-            this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
-            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.metroTabPage2 = new MetroFramework.Controls.MetroTabPage();
             this.nextButton2 = new MetroFramework.Controls.MetroButton();
             this.locationButton = new MetroFramework.Controls.MetroButton();
@@ -52,7 +51,9 @@
             this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
             this.FontComboBox = new MetroFramework.Controls.MetroComboBox();
+            this.fontPreview = new System.Windows.Forms.PictureBox();
             this.metroTabPage4 = new MetroFramework.Controls.MetroTabPage();
+            this.uninstallButton = new MetroFramework.Controls.MetroButton();
             this.logTextBox = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
             this.patchButton = new MetroFramework.Controls.MetroButton();
@@ -60,16 +61,14 @@
             this.patchNoteTextBox = new MetroFramework.Controls.MetroLabel();
             this.metroLabel9 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel11 = new MetroFramework.Controls.MetroLabel();
-            this.uninstallButton = new MetroFramework.Controls.MetroButton();
-            this.fontPreview = new System.Windows.Forms.PictureBox();
             this.metroTabControl1.SuspendLayout();
             this.metroTabPage1.SuspendLayout();
-            this.metroPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.metroTabPage2.SuspendLayout();
             this.metroTabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fontPreview)).BeginInit();
             this.metroTabPage4.SuspendLayout();
             this.metroPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fontPreview)).BeginInit();
             this.SuspendLayout();
             // 
             // metroTabControl1
@@ -80,7 +79,7 @@
             this.metroTabControl1.Controls.Add(this.metroTabPage4);
             this.metroTabControl1.Location = new System.Drawing.Point(16, 73);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 3;
+            this.metroTabControl1.SelectedIndex = 0;
             this.metroTabControl1.Size = new System.Drawing.Size(579, 390);
             this.metroTabControl1.Style = MetroFramework.MetroColorStyle.Silver;
             this.metroTabControl1.TabIndex = 0;
@@ -88,11 +87,11 @@
             // 
             // metroTabPage1
             // 
+            this.metroTabPage1.Controls.Add(this.versionLabel);
+            this.metroTabPage1.Controls.Add(this.pictureBox1);
+            this.metroTabPage1.Controls.Add(this.agreementText);
             this.metroTabPage1.Controls.Add(this.nextButton1);
-            this.metroTabPage1.Controls.Add(this.disgreeRadioButton);
-            this.metroTabPage1.Controls.Add(this.AgreeRadioButton);
             this.metroTabPage1.Controls.Add(this.metroLabel2);
-            this.metroTabPage1.Controls.Add(this.metroPanel1);
             this.metroTabPage1.HorizontalScrollbarBarColor = true;
             this.metroTabPage1.HorizontalScrollbarHighlightOnWheel = false;
             this.metroTabPage1.HorizontalScrollbarSize = 10;
@@ -100,15 +99,44 @@
             this.metroTabPage1.Name = "metroTabPage1";
             this.metroTabPage1.Size = new System.Drawing.Size(571, 348);
             this.metroTabPage1.TabIndex = 0;
-            this.metroTabPage1.Text = "[약관 - Agreement]";
+            this.metroTabPage1.Text = "[시작 - Start]";
             this.metroTabPage1.VerticalScrollbarBarColor = true;
             this.metroTabPage1.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage1.VerticalScrollbarSize = 10;
             // 
+            // versionLabel
+            // 
+            this.versionLabel.AutoSize = true;
+            this.versionLabel.Location = new System.Drawing.Point(21, 329);
+            this.versionLabel.Name = "versionLabel";
+            this.versionLabel.Size = new System.Drawing.Size(80, 19);
+            this.versionLabel.TabIndex = 10;
+            this.versionLabel.Text = "Version 1.0.0";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::BDOKRPatch.Properties.Resources.KRLogo2;
+            this.pictureBox1.Location = new System.Drawing.Point(21, 10);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(522, 278);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
+            // 
+            // agreementText
+            // 
+            this.agreementText.AutoSize = true;
+            this.agreementText.FontSize = MetroFramework.MetroLabelSize.Small;
+            this.agreementText.Location = new System.Drawing.Point(21, 291);
+            this.agreementText.Name = "agreementText";
+            this.agreementText.Size = new System.Drawing.Size(37, 15);
+            this.agreementText.TabIndex = 8;
+            this.agreementText.Text = "[약관]";
+            this.agreementText.Click += new System.EventHandler(this.agreementText_Click);
+            // 
             // nextButton1
             // 
-            this.nextButton1.Enabled = false;
-            this.nextButton1.Location = new System.Drawing.Point(487, 319);
+            this.nextButton1.Location = new System.Drawing.Point(459, 319);
             this.nextButton1.Name = "nextButton1";
             this.nextButton1.Size = new System.Drawing.Size(84, 29);
             this.nextButton1.TabIndex = 7;
@@ -116,66 +144,15 @@
             this.nextButton1.UseSelectable = true;
             this.nextButton1.Click += new System.EventHandler(this.nextButton1_Click);
             // 
-            // disgreeRadioButton
-            // 
-            this.disgreeRadioButton.AutoSize = true;
-            this.disgreeRadioButton.Checked = true;
-            this.disgreeRadioButton.Location = new System.Drawing.Point(257, 287);
-            this.disgreeRadioButton.Name = "disgreeRadioButton";
-            this.disgreeRadioButton.Size = new System.Drawing.Size(115, 15);
-            this.disgreeRadioButton.TabIndex = 6;
-            this.disgreeRadioButton.TabStop = true;
-            this.disgreeRadioButton.Text = "비동의 (Disagree)";
-            this.disgreeRadioButton.UseSelectable = true;
-            this.disgreeRadioButton.CheckedChanged += new System.EventHandler(this.disgreeRadioButton_CheckedChanged);
-            // 
-            // AgreeRadioButton
-            // 
-            this.AgreeRadioButton.AutoSize = true;
-            this.AgreeRadioButton.Location = new System.Drawing.Point(81, 287);
-            this.AgreeRadioButton.Name = "AgreeRadioButton";
-            this.AgreeRadioButton.Size = new System.Drawing.Size(89, 15);
-            this.AgreeRadioButton.TabIndex = 5;
-            this.AgreeRadioButton.Text = "동의 (Agree)";
-            this.AgreeRadioButton.UseSelectable = true;
-            this.AgreeRadioButton.CheckedChanged += new System.EventHandler(this.AgreeRadioButton_CheckedChanged);
-            // 
             // metroLabel2
             // 
             this.metroLabel2.AutoSize = true;
-            this.metroLabel2.Location = new System.Drawing.Point(17, 228);
+            this.metroLabel2.FontSize = MetroFramework.MetroLabelSize.Small;
+            this.metroLabel2.Location = new System.Drawing.Point(236, 291);
             this.metroLabel2.Name = "metroLabel2";
-            this.metroLabel2.Size = new System.Drawing.Size(401, 38);
+            this.metroLabel2.Size = new System.Drawing.Size(307, 15);
             this.metroLabel2.TabIndex = 4;
-            this.metroLabel2.Text = "위 내용에 동의하시면 아래의 체크박스를 선택해주세요\r\nIf you agree with the above please check the box be" +
-    "low to proceed";
-            // 
-            // metroPanel1
-            // 
-            this.metroPanel1.AutoScroll = true;
-            this.metroPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.metroPanel1.Controls.Add(this.metroLabel1);
-            this.metroPanel1.HorizontalScrollbar = true;
-            this.metroPanel1.HorizontalScrollbarBarColor = true;
-            this.metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroPanel1.HorizontalScrollbarSize = 10;
-            this.metroPanel1.Location = new System.Drawing.Point(17, 18);
-            this.metroPanel1.Name = "metroPanel1";
-            this.metroPanel1.Size = new System.Drawing.Size(532, 195);
-            this.metroPanel1.TabIndex = 3;
-            this.metroPanel1.VerticalScrollbar = true;
-            this.metroPanel1.VerticalScrollbarBarColor = true;
-            this.metroPanel1.VerticalScrollbarHighlightOnWheel = true;
-            this.metroPanel1.VerticalScrollbarSize = 10;
-            // 
-            // metroLabel1
-            // 
-            this.metroLabel1.AutoSize = true;
-            this.metroLabel1.Location = new System.Drawing.Point(0, 0);
-            this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(451, 494);
-            this.metroLabel1.TabIndex = 3;
-            this.metroLabel1.Text = resources.GetString("metroLabel1.Text");
+            this.metroLabel2.Text = "다음을 누르심으로써 한글패치약관에 동의하시게됩니다 ";
             // 
             // metroTabPage2
             // 
@@ -383,6 +360,15 @@
             this.FontComboBox.UseSelectable = true;
             this.FontComboBox.SelectedIndexChanged += new System.EventHandler(this.FontComboBox_SelectedIndexChanged);
             // 
+            // fontPreview
+            // 
+            this.fontPreview.Image = global::BDOKRPatch.Properties.Resources.ridi;
+            this.fontPreview.Location = new System.Drawing.Point(13, 122);
+            this.fontPreview.Name = "fontPreview";
+            this.fontPreview.Size = new System.Drawing.Size(239, 177);
+            this.fontPreview.TabIndex = 4;
+            this.fontPreview.TabStop = false;
+            // 
             // metroTabPage4
             // 
             this.metroTabPage4.Controls.Add(this.uninstallButton);
@@ -403,6 +389,17 @@
             this.metroTabPage4.VerticalScrollbarBarColor = true;
             this.metroTabPage4.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage4.VerticalScrollbarSize = 10;
+            // 
+            // uninstallButton
+            // 
+            this.uninstallButton.FontSize = MetroFramework.MetroButtonSize.Medium;
+            this.uninstallButton.Location = new System.Drawing.Point(402, 307);
+            this.uninstallButton.Name = "uninstallButton";
+            this.uninstallButton.Size = new System.Drawing.Size(150, 38);
+            this.uninstallButton.TabIndex = 10;
+            this.uninstallButton.Text = "한글패치 삭제";
+            this.uninstallButton.UseSelectable = true;
+            this.uninstallButton.Click += new System.EventHandler(this.uninstallButton_Click);
             // 
             // logTextBox
             // 
@@ -507,26 +504,6 @@
             this.metroLabel11.TabIndex = 1;
             this.metroLabel11.Text = "Developed by E2Slayer, Kesk";
             // 
-            // uninstallButton
-            // 
-            this.uninstallButton.FontSize = MetroFramework.MetroButtonSize.Medium;
-            this.uninstallButton.Location = new System.Drawing.Point(402, 307);
-            this.uninstallButton.Name = "uninstallButton";
-            this.uninstallButton.Size = new System.Drawing.Size(150, 38);
-            this.uninstallButton.TabIndex = 10;
-            this.uninstallButton.Text = "한글패치 삭제";
-            this.uninstallButton.UseSelectable = true;
-            this.uninstallButton.Click += new System.EventHandler(this.uninstallButton_Click);
-            // 
-            // fontPreview
-            // 
-            this.fontPreview.Image = global::BDOKRPatch.Properties.Resources.ridi;
-            this.fontPreview.Location = new System.Drawing.Point(13, 122);
-            this.fontPreview.Name = "fontPreview";
-            this.fontPreview.Size = new System.Drawing.Size(239, 177);
-            this.fontPreview.TabIndex = 4;
-            this.fontPreview.TabStop = false;
-            // 
             // Install
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -542,17 +519,16 @@
             this.metroTabControl1.ResumeLayout(false);
             this.metroTabPage1.ResumeLayout(false);
             this.metroTabPage1.PerformLayout();
-            this.metroPanel1.ResumeLayout(false);
-            this.metroPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.metroTabPage2.ResumeLayout(false);
             this.metroTabPage2.PerformLayout();
             this.metroTabPage3.ResumeLayout(false);
             this.metroTabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fontPreview)).EndInit();
             this.metroTabPage4.ResumeLayout(false);
             this.metroTabPage4.PerformLayout();
             this.metroPanel2.ResumeLayout(false);
             this.metroPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fontPreview)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -563,10 +539,6 @@
         private MetroFramework.Controls.MetroTabControl metroTabControl1;
         private MetroFramework.Controls.MetroTabPage metroTabPage1;
         private MetroFramework.Controls.MetroTabPage metroTabPage3;
-        private MetroFramework.Controls.MetroPanel metroPanel1;
-        private MetroFramework.Controls.MetroLabel metroLabel1;
-        private MetroFramework.Controls.MetroRadioButton disgreeRadioButton;
-        private MetroFramework.Controls.MetroRadioButton AgreeRadioButton;
         private MetroFramework.Controls.MetroLabel metroLabel2;
         private MetroFramework.Controls.MetroButton nextButton1;
         private MetroFramework.Controls.MetroButton locationButton;
@@ -593,5 +565,8 @@
         private MetroFramework.Controls.MetroLabel metroLabel7;
         private MetroFramework.Controls.MetroButton nextButton3;
         private MetroFramework.Controls.MetroButton uninstallButton;
+        private MetroFramework.Controls.MetroLabel agreementText;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private MetroFramework.Controls.MetroLabel versionLabel;
     }
 }

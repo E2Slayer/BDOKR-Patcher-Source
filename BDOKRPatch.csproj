@@ -146,6 +146,8 @@
   <ItemGroup>
     <Content Include="BlackDesert.ico" />
     <Content Include="Resources\BlackDesert.ico" />
+    <None Include="Resources\KRLogo2.png" />
+    <None Include="Resources\KRLogo.png" />
     <None Include="Resources\ridi.png" />
   </ItemGroup>
   <ItemGroup>
