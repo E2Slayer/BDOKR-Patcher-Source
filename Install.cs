@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -26,6 +27,9 @@ namespace BDOKRPatch
         private int validatedirectory = 0;
         private int font = 1;
         private int languageselection = 0;
+
+        private Queue qt = new Queue();
+        private int installType = 0;
 
         public Install()
         {
@@ -239,11 +243,47 @@ namespace BDOKRPatch
 
         private void Completed(object sender, AsyncCompletedEventArgs e)
         {
-            return;
+
+            if (qt.Count >= 1)
+            {
+                string fileIdentifier = ((System.Net.WebClient)(sender)).QueryString["file"];
+                logTextBox.AppendText(Environment.NewLine);
+                logTextBox.AppendText("[다운로드완료] - " + DateTime.Now.ToString("h:mm:ss tt") + "] " + fileIdentifier);
+                qt.Dequeue();
+
+                if (qt.Count == 0)
+                {
+                    logTextBox.AppendText(Environment.NewLine);
+                    logTextBox.AppendText("[알림 - " + DateTime.Now.ToString("h:mm:ss tt") + "] 모든 작업이 완료되었습니다");
+                    logTextBox.AppendText(Environment.NewLine);
+                    logTextBox.AppendText("===============================================================");
+                    logTextBox.AppendText(Environment.NewLine);
+                    if (installType == 1)
+                    {
+                        logTextBox.AppendText("한글패치가 완료되었습니다 !! 프로그램을 종료하셔도됩니다.");
+                        patchButton.Enabled = true;
+                        uninstallButton.Enabled = true;
+                        installType = 0;
+                    }
+                    else if (installType == 2)
+                    {
+                        logTextBox.AppendText("한글패치가 삭제되었습니다. 프로그램을 종료하셔도됩니다.");
+                        patchButton.Enabled = true;
+                        uninstallButton.Enabled = true;
+
+                        installType = 0;
+                    }
+
+                    logTextBox.AppendText(Environment.NewLine);
+                    logTextBox.AppendText("===============================================================");
+                }
+            }
+            
+
             //logTextBox.Text += "\n Download Completed " + sender.ToString() + "\n";
-            string fileIdentifier = ((System.Net.WebClient)(sender)).QueryString["file"];
-            logTextBox.AppendText(Environment.NewLine);
-            logTextBox.AppendText("[다운로드완료 - " + DateTime.Now.ToString("h:mm:ss tt") + "] " + fileIdentifier);
+           // string fileIdentifier = ((System.Net.WebClient)(sender)).QueryString["file"];
+            //logTextBox.AppendText(Environment.NewLine);
+            //logTextBox.AppendText("[다운로드완료 - " + DateTime.Now.ToString("h:mm:ss tt") + "] " + fileIdentifier);
         }
 
         private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -254,7 +294,9 @@ namespace BDOKRPatch
         private void patchButton_Click(object sender, EventArgs e)
         {
             Communication_Checker();
-
+            patchButton.Enabled = false;
+            uninstallButton.Enabled = false;
+            installType = 1;
 
             string selectedLangStr = "None";
 
@@ -314,9 +356,9 @@ namespace BDOKRPatch
 
 
 
-            
 
 
+            qt.Clear();
 
             try
             {
@@ -348,7 +390,7 @@ namespace BDOKRPatch
             }
 
 
-            
+            /*
             if (File.Exists(currentLocation + @"ads\languagedata_en_backup.loc") && File.Exists(currentLocation + @"ads\languagedata_"+ selectedLangStr+".loc"))
             {
                 logTextBox.AppendText(Environment.NewLine);
@@ -361,11 +403,15 @@ namespace BDOKRPatch
                 logTextBox.AppendText(Environment.NewLine);
                 logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] languagedata_en.loc 원본 백업완료");
             }
+            */
             
 
             Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/languagedata_en_toKR.PAZ", currentLocation + @"ads\languagedata_" + selectedLangStr + "_toKR.PAZ", "languagedata_" + selectedLangStr + "_toKR.PAZ");
+            qt.Enqueue(true);
             Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/languagedata_en.loc", currentLocation + @"ads\languagedata_" + selectedLangStr + ".loc", "languagedata_" + selectedLangStr + ".loc");
-          //  Download(@"https://raw.githubusercontent.com/E2Slayer/BDOKRPatchData/master/KRPVersion", currentLocation + @"ads\KRPVersion", "KRPVersion.chk");
+            qt.Enqueue(true);
+
+            //  Download(@"https://raw.githubusercontent.com/E2Slayer/BDOKRPatchData/master/KRPVersion", currentLocation + @"ads\KRPVersion", "KRPVersion.chk");
 
             /*
              *             "리디바탕",
@@ -438,19 +484,11 @@ namespace BDOKRPatch
 
 
             Download(fontURL, currentLocation + @"\prestringtable\font\pearl.ttf", "pearl.ttf");
-
+            qt.Enqueue(true);
 
             //Task.Delay(1000).Wait();
 
 
-            logTextBox.AppendText(Environment.NewLine);
-            logTextBox.AppendText("[알림 - " + DateTime.Now.ToString("h:mm:ss tt") + "] 모든 작업이 완료되었습니다");
-            logTextBox.AppendText(Environment.NewLine);
-            logTextBox.AppendText("===============================================================");
-            logTextBox.AppendText(Environment.NewLine);
-            logTextBox.AppendText("한글패치완료 ! 프로그램을 종료하셔도됩니다.");
-            logTextBox.AppendText(Environment.NewLine);
-            logTextBox.AppendText("===============================================================");
             //logTextBox.AppendText(Environment.NewLine);
             // logTextBox.AppendText(fontURL);
             // WebClient wb = new WebClient();
@@ -479,7 +517,15 @@ namespace BDOKRPatch
             }
 
 
+            if (!File.Exists(Environment.CurrentDirectory + "\\config.xml"))
+            {
+                MetroFramework.MetroMessageBox.Show(this, "config.xml을 열수없습니다. \n프로그램을 재설치해주세요", "경고", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Windows.Forms.Application.ExitThread();
+                System.Windows.Forms.Application.Exit();
+            }
+
             XmlDocument doc = new XmlDocument();
+
             doc.Load(Environment.CurrentDirectory+"\\config.xml");
             XmlNodeList xNodeList = doc.SelectNodes("/root");
 
@@ -538,15 +584,21 @@ namespace BDOKRPatch
 
         private void uninstallButton_Click(object sender, EventArgs e)
         {
+
+            installType = 2;
             DialogResult dialogResult =
                 MessageBox.Show(
-                    $"BDO 한글패치된 파일들을 삭제합니다. \n 모든 패치파일들은 원상복귀가 됩니다. \n진행하시겠습니까? ", @"한글패치 삭제",
+                    $"BDO 한글패치된 파일들을 삭제합니다. \n모든 패치파일들은 원상복귀가 됩니다. \n진행하시겠습니까? ", @"한글패치 삭제",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Information);
             if (dialogResult.Equals(DialogResult.Yes) || dialogResult.Equals(DialogResult.OK))
             {
                 try
                 {
+                    patchButton.Enabled = false;
+                    qt.Clear();
+                    
+
                     string currentLocation = selectedPath + @"\";
                    // string pathAds = currentLocation + @"\ads";
 
@@ -576,15 +628,19 @@ namespace BDOKRPatch
 
                     }
 
-
-                    
-                    Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/languagedata_en.loc", currentLocation + @"ads\languagedata_en.loc", "languagedata_en.loc");
-                    Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/languagedata_fr.loc", currentLocation + @"ads\languagedata_fr.loc", "languagedata_fr.loc");
-                    Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/languagedata_de.loc", currentLocation + @"ads\languagedata_de.loc", "languagedata_de.loc");
-                    Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/languagedata_sp.loc", currentLocation + @"ads\languagedata_sp.loc", "languagedata_sp.loc");
                     logTextBox.AppendText(Environment.NewLine);
-                    logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] locale 원본파일 다운로드중...");
+                    logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] locale 원본파일들 다운로드 시작...");
 
+
+                    Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Original/languagedata_en.loc", currentLocation + @"ads\languagedata_en.loc", "languagedata_en.loc");
+                    qt.Enqueue(true);
+                    Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Original/languagedata_fr.loc", currentLocation + @"ads\languagedata_fr.loc", "languagedata_fr.loc");
+                    qt.Enqueue(true);
+                    Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Original/languagedata_de.loc", currentLocation + @"ads\languagedata_de.loc", "languagedata_de.loc");
+                    qt.Enqueue(true);
+                    Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Original/languagedata_sp.loc", currentLocation + @"ads\languagedata_sp.loc", "languagedata_sp.loc");
+                    qt.Enqueue(true);
+                   
 
                     if (File.Exists(currentLocation + @"ads\languagedata_en_backup.loc"))
                     {
@@ -633,14 +689,7 @@ namespace BDOKRPatch
                     logTextBox.AppendText(Environment.NewLine);
                     logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] 번역 PAZ파일 삭제중...");
 
-                    logTextBox.AppendText(Environment.NewLine);
-                    logTextBox.AppendText("[알림 - " + DateTime.Now.ToString("h:mm:ss tt") + "] 모든 작업이 완료되었습니다");
-                    logTextBox.AppendText(Environment.NewLine);
-                    logTextBox.AppendText("===============================================================");
-                    logTextBox.AppendText(Environment.NewLine);
-                    logTextBox.AppendText("한글패치 삭제 완료. 프로그램을 종료하셔도됩니다.");
-                    logTextBox.AppendText(Environment.NewLine);
-                    logTextBox.AppendText("===============================================================");
+
 
                 }
                 catch (Exception exception)
