@@ -10,6 +10,8 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace BDOKRPatch
 {
@@ -18,6 +20,13 @@ namespace BDOKRPatch
 
         private string selectedPath = @"";
         private bool comChecker = false;
+
+        private int steam = 0;
+        private string installPath = @"";
+        private int validatedirectory = 0;
+        private int font = 1;
+        private int languageselection = 0;
+
         public Install()
         {
             InitializeComponent();
@@ -107,6 +116,41 @@ namespace BDOKRPatch
             this.metroTabPage2.Parent = this.metroTabControl1;
             this.metroTabPage2.Enabled = true;
 
+            if (validatedirectory == 1)
+            {
+                MetroFramework.MetroMessageBox.Show(this, "이전 설치정보를 발견했습니다. \n한글패치탭으로 바로 넘어갑니다.\n\n다른 설정을 바꾸시고 싶으시면\n탭을 수동으로 선택하시면 설정을 바꿀 수 있습니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                metroTabControl1.SelectedTab = metroTabPage4;
+                nextButton2.Enabled = true;
+                this.metroTabPage3.Enabled = true;
+
+                this.metroTabPage4.Enabled = true;
+
+                if (steam == 1)
+                {
+                    steamRadio.Checked = true;
+                }
+
+                locationTextBox.Text = installPath;
+                FontComboBox.SelectedIndex = font;
+
+                switch (languageselection)
+                {
+                    case 0: //english
+                        metroRadioButton1.Checked = true;
+                        break;
+                    case 1:
+                        metroRadioButton2.Checked = true;
+                        break;
+                    case 2:
+                        metroRadioButton3.Checked = true;
+                        break;
+                    case 3:
+                        metroRadioButton4.Checked = true;
+                        break;
+                }
+            }
+
+
         }
 
         private void nextButton2_Click(object sender, EventArgs e)
@@ -115,8 +159,17 @@ namespace BDOKRPatch
             metroTabControl1.SelectedTab = metroTabPage3;
             this.metroTabPage3.Parent = this.metroTabControl1;
             this.metroTabPage3.Enabled = true;
-            this.FontComboBox.SelectedIndex = 1;
+            
         }
+
+
+        private void nextButton3_Click(object sender, EventArgs e)
+        {
+            metroTabControl1.SelectedTab = metroTabPage4;
+            // this.metroTabPage3.Parent = this.metroTabControl1;
+            this.metroTabPage4.Enabled = true;
+        }
+
 
         private void FontComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -201,10 +254,70 @@ namespace BDOKRPatch
         private void patchButton_Click(object sender, EventArgs e)
         {
             Communication_Checker();
+
+
+            string selectedLangStr = "None";
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(Environment.CurrentDirectory + "\\config.xml");
+            XmlNodeList xNodeList = doc.SelectNodes("/root");
+            //MetroFramework.MetroMessageBox.Show(this, "config.xml을 열수없습니다. \n프로그램을 업데이트해주세요", "경고", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (doc != null)
+            {
+                if (steamRadio.Checked)
+                {
+                    doc.SelectSingleNode("//root/steam").InnerText = "1";
+                }
+                else
+                {
+                    doc.SelectSingleNode("//root/steam").InnerText = "0";
+                }
+
+                doc.SelectSingleNode("//root/installpath").InnerText = selectedPath;
+                doc.SelectSingleNode("//root/validatedirectory").InnerText = "1";
+                doc.SelectSingleNode("//root/font").InnerText = (FontComboBox.SelectedIndex).ToString();
+
+                int lang = 0;
+
+                if (metroRadioButton1.Checked)
+                {
+                    lang = 0;
+                    selectedLangStr = "en";
+                }
+                else if (metroRadioButton2.Checked)
+                {
+                    lang = 1;
+                    selectedLangStr = "fr";
+                }
+                else if (metroRadioButton3.Checked)
+                {
+                    lang = 2;
+                    selectedLangStr = "de";
+                }
+                else if (metroRadioButton4.Checked)
+                {
+                    lang = 3;
+                    selectedLangStr = "sp";
+                }
+
+                doc.SelectSingleNode("//root/languageselection").InnerText = (lang).ToString();
+
+
+                doc.Save(Environment.CurrentDirectory + "\\config.xml");
+
+            }
+
             // selectedPath = locationTextBox.Text;
             string currentLocation = selectedPath + @"\";
 
             string pathAds = currentLocation + @"\ads";
+
+
+
+            
+
+
+
             try
             {
                 // Determine whether the directory exists.
@@ -236,22 +349,22 @@ namespace BDOKRPatch
 
 
             
-            if (File.Exists(currentLocation + @"ads\languagedata_en_backup.loc") && File.Exists(currentLocation + @"ads\languagedata_en.loc"))
+            if (File.Exists(currentLocation + @"ads\languagedata_en_backup.loc") && File.Exists(currentLocation + @"ads\languagedata_"+ selectedLangStr+".loc"))
             {
                 logTextBox.AppendText(Environment.NewLine);
                 logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] languagedata_en.loc 백업이 이미 되어있습니다. 백업하지않습니다");
             }
-            else if (!File.Exists(currentLocation + @"ads\languagedata_en_backup.loc") && File.Exists(currentLocation + @"ads\languagedata_en.loc"))
+            else if (!File.Exists(currentLocation + @"ads\languagedata_en_backup.loc") && File.Exists(currentLocation + @"ads\languagedata_" + selectedLangStr + ".loc"))
             {
 
-                System.IO.File.Move(currentLocation + @"ads\languagedata_en.loc", currentLocation + @"ads\languagedata_en_backup.loc");
+                System.IO.File.Move(currentLocation + @"ads\languagedata_en.loc", currentLocation + @"ads\languagedata_" + selectedLangStr + "_backup.loc");
                 logTextBox.AppendText(Environment.NewLine);
                 logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] languagedata_en.loc 원본 백업완료");
             }
             
 
-            Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/languagedata_en_toKR.PAZ", currentLocation + @"ads\languagedata_en_toKR.PAZ", "languagedata_en_toKR.PAZ");
-            Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/languagedata_en.loc", currentLocation + @"ads\languagedata_en.loc", "languagedata_en.loc");
+            Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/languagedata_en_toKR.PAZ", currentLocation + @"ads\languagedata_" + selectedLangStr + "_toKR.PAZ", "languagedata_" + selectedLangStr + "_toKR.PAZ");
+            Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/languagedata_en.loc", currentLocation + @"ads\languagedata_" + selectedLangStr + ".loc", "languagedata_" + selectedLangStr + ".loc");
           //  Download(@"https://raw.githubusercontent.com/E2Slayer/BDOKRPatchData/master/KRPVersion", currentLocation + @"ads\KRPVersion", "KRPVersion.chk");
 
             /*
@@ -345,22 +458,15 @@ namespace BDOKRPatch
             // wb.DownloadFile("https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/languagedata_en_toKR.PAZ", @"C:\temp\languagedata_en_toKR.PAZ");
         }
 
-        private void nextButton3_Click(object sender, EventArgs e)
-        {
-            metroTabControl1.SelectedTab = metroTabPage4;
-           // this.metroTabPage3.Parent = this.metroTabControl1;
-            this.metroTabPage4.Enabled = true;
-        }
-
         private void Install_Load(object sender, EventArgs e)
         {
-            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            // System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
-            FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
+            //FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
 
-            versionLabel.Text = "Version "+fileVersion.FileVersion;
+            // versionLabel.Text = "Version "+fileVersion.FileVersion;
 
-
+            this.FontComboBox.SelectedIndex = 1;
             metroTabControl1.SelectedIndex = 0;
             Communication_Loader();
             Communication_Checker();
@@ -372,7 +478,34 @@ namespace BDOKRPatch
                 patchNoteTextBox.Text = htmlCode;
             }
 
-            
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(Environment.CurrentDirectory+"\\config.xml");
+            XmlNodeList xNodeList = doc.SelectNodes("/root");
+
+            if (xNodeList != null)
+            {
+                foreach (XmlNode xNode in xNodeList)
+                {
+                    //XmlConvert.ToBoolean(xNode["validatedirectory"].InnerText);
+                    steam = XmlConvert.ToInt32(xNode["steam"].InnerText);
+                    installPath = xNode["installpath"].InnerText;
+                    validatedirectory = XmlConvert.ToInt32(xNode["validatedirectory"].InnerText);
+                    font = XmlConvert.ToInt32(xNode["font"].InnerText);
+                    languageselection = XmlConvert.ToInt32(xNode["languageselection"].InnerText);
+                }
+
+                selectedPath = installPath;
+
+
+                //Console.WriteLine(languageselection);
+            }
+            else
+            {
+                MetroFramework.MetroMessageBox.Show(this, "config.xml을 열수없습니다. \n프로그램을 업데이트해주세요", "경고", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Windows.Forms.Application.ExitThread();
+                System.Windows.Forms.Application.Exit();
+            }
         }
 
         private void Communication_Loader()
@@ -446,6 +579,9 @@ namespace BDOKRPatch
 
                     
                     Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/languagedata_en.loc", currentLocation + @"ads\languagedata_en.loc", "languagedata_en.loc");
+                    Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/languagedata_fr.loc", currentLocation + @"ads\languagedata_fr.loc", "languagedata_fr.loc");
+                    Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/languagedata_de.loc", currentLocation + @"ads\languagedata_de.loc", "languagedata_de.loc");
+                    Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/languagedata_sp.loc", currentLocation + @"ads\languagedata_sp.loc", "languagedata_sp.loc");
                     logTextBox.AppendText(Environment.NewLine);
                     logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] locale 원본파일 다운로드중...");
 
@@ -453,19 +589,49 @@ namespace BDOKRPatch
                     if (File.Exists(currentLocation + @"ads\languagedata_en_backup.loc"))
                     {
                         File.Delete(currentLocation + @"ads\languagedata_en_backup.loc");
-                        logTextBox.AppendText(Environment.NewLine);
-                        logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] 백업파일 삭제중...");
                     }
+
+                    if (File.Exists(currentLocation + @"ads\languagedata_fr_backup.loc"))
+                    {
+                        File.Delete(currentLocation + @"ads\languagedata_fr_backup.loc");
+                    }
+
+                    if (File.Exists(currentLocation + @"ads\languagedata_de_backup.loc"))
+                    {
+                        File.Delete(currentLocation + @"ads\languagedata_de_backup.loc");
+                    }
+
+                    if (File.Exists(currentLocation + @"ads\languagedata_sp_backup.loc"))
+                    {
+                        File.Delete(currentLocation + @"ads\languagedata_sp_backup.loc");
+                    }
+
+                    logTextBox.AppendText(Environment.NewLine);
+                    logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] 백업파일 삭제중...");
 
 
                     if (File.Exists(currentLocation + @"ads\languagedata_en_toKR.PAZ"))
                     {
                         File.Delete(currentLocation + @"ads\languagedata_en_toKR.PAZ");
-                        logTextBox.AppendText(Environment.NewLine);
-                        logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] 번역 PAZ파일 삭제중...");
                     }
 
+                    if (File.Exists(currentLocation + @"ads\languagedata_fr_toKR.PAZ"))
+                    {
+                        File.Delete(currentLocation + @"ads\languagedata_fr_toKR.PAZ");
+                    }
 
+                    if (File.Exists(currentLocation + @"ads\languagedata_de_toKR.PAZ"))
+                    {
+                        File.Delete(currentLocation + @"ads\languagedata_de_toKR.PAZ");
+                    }
+
+                    if (File.Exists(currentLocation + @"ads\languagedata_sp_toKR.PAZ"))
+                    {
+                        File.Delete(currentLocation + @"ads\languagedata_sp_toKR.PAZ");
+                    }
+
+                    logTextBox.AppendText(Environment.NewLine);
+                    logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] 번역 PAZ파일 삭제중...");
 
                     logTextBox.AppendText(Environment.NewLine);
                     logTextBox.AppendText("[알림 - " + DateTime.Now.ToString("h:mm:ss tt") + "] 모든 작업이 완료되었습니다");

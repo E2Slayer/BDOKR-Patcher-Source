@@ -31,12 +31,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Install));
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.metroTabPage1 = new MetroFramework.Controls.MetroTabPage();
-            this.versionLabel = new MetroFramework.Controls.MetroLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.agreementText = new MetroFramework.Controls.MetroLabel();
             this.nextButton1 = new MetroFramework.Controls.MetroButton();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.metroTabPage2 = new MetroFramework.Controls.MetroTabPage();
+            this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
+            this.metroRadioButton4 = new MetroFramework.Controls.MetroRadioButton();
+            this.metroRadioButton3 = new MetroFramework.Controls.MetroRadioButton();
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+            this.metroRadioButton2 = new MetroFramework.Controls.MetroRadioButton();
+            this.metroRadioButton1 = new MetroFramework.Controls.MetroRadioButton();
             this.nextButton2 = new MetroFramework.Controls.MetroButton();
             this.locationButton = new MetroFramework.Controls.MetroButton();
             this.locationTextBox = new MetroFramework.Controls.MetroTextBox();
@@ -65,6 +70,7 @@
             this.metroTabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.metroTabPage2.SuspendLayout();
+            this.metroPanel1.SuspendLayout();
             this.metroTabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fontPreview)).BeginInit();
             this.metroTabPage4.SuspendLayout();
@@ -79,7 +85,7 @@
             this.metroTabControl1.Controls.Add(this.metroTabPage4);
             this.metroTabControl1.Location = new System.Drawing.Point(16, 73);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 0;
+            this.metroTabControl1.SelectedIndex = 1;
             this.metroTabControl1.Size = new System.Drawing.Size(579, 390);
             this.metroTabControl1.Style = MetroFramework.MetroColorStyle.Silver;
             this.metroTabControl1.TabIndex = 0;
@@ -87,7 +93,6 @@
             // 
             // metroTabPage1
             // 
-            this.metroTabPage1.Controls.Add(this.versionLabel);
             this.metroTabPage1.Controls.Add(this.pictureBox1);
             this.metroTabPage1.Controls.Add(this.agreementText);
             this.metroTabPage1.Controls.Add(this.nextButton1);
@@ -103,15 +108,6 @@
             this.metroTabPage1.VerticalScrollbarBarColor = true;
             this.metroTabPage1.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage1.VerticalScrollbarSize = 10;
-            // 
-            // versionLabel
-            // 
-            this.versionLabel.AutoSize = true;
-            this.versionLabel.Location = new System.Drawing.Point(21, 329);
-            this.versionLabel.Name = "versionLabel";
-            this.versionLabel.Size = new System.Drawing.Size(80, 19);
-            this.versionLabel.TabIndex = 10;
-            this.versionLabel.Text = "Version 1.0.0";
             // 
             // pictureBox1
             // 
@@ -156,6 +152,7 @@
             // 
             // metroTabPage2
             // 
+            this.metroTabPage2.Controls.Add(this.metroPanel1);
             this.metroTabPage2.Controls.Add(this.nextButton2);
             this.metroTabPage2.Controls.Add(this.locationButton);
             this.metroTabPage2.Controls.Add(this.locationTextBox);
@@ -175,6 +172,75 @@
             this.metroTabPage2.VerticalScrollbarBarColor = true;
             this.metroTabPage2.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage2.VerticalScrollbarSize = 10;
+            // 
+            // metroPanel1
+            // 
+            this.metroPanel1.Controls.Add(this.metroRadioButton4);
+            this.metroPanel1.Controls.Add(this.metroRadioButton3);
+            this.metroPanel1.Controls.Add(this.metroLabel1);
+            this.metroPanel1.Controls.Add(this.metroRadioButton2);
+            this.metroPanel1.Controls.Add(this.metroRadioButton1);
+            this.metroPanel1.HorizontalScrollbarBarColor = true;
+            this.metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroPanel1.HorizontalScrollbarSize = 10;
+            this.metroPanel1.Location = new System.Drawing.Point(3, 181);
+            this.metroPanel1.Name = "metroPanel1";
+            this.metroPanel1.Size = new System.Drawing.Size(389, 156);
+            this.metroPanel1.TabIndex = 10;
+            this.metroPanel1.VerticalScrollbarBarColor = true;
+            this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
+            this.metroPanel1.VerticalScrollbarSize = 10;
+            // 
+            // metroRadioButton4
+            // 
+            this.metroRadioButton4.AutoSize = true;
+            this.metroRadioButton4.Location = new System.Drawing.Point(15, 100);
+            this.metroRadioButton4.Name = "metroRadioButton4";
+            this.metroRadioButton4.Size = new System.Drawing.Size(123, 15);
+            this.metroRadioButton4.TabIndex = 12;
+            this.metroRadioButton4.Text = "스페인어 (Spanish)";
+            this.metroRadioButton4.UseSelectable = true;
+            // 
+            // metroRadioButton3
+            // 
+            this.metroRadioButton3.AutoSize = true;
+            this.metroRadioButton3.Location = new System.Drawing.Point(15, 79);
+            this.metroRadioButton3.Name = "metroRadioButton3";
+            this.metroRadioButton3.Size = new System.Drawing.Size(112, 15);
+            this.metroRadioButton3.TabIndex = 11;
+            this.metroRadioButton3.Text = "독일어 (German)";
+            this.metroRadioButton3.UseSelectable = true;
+            // 
+            // metroLabel1
+            // 
+            this.metroLabel1.AutoSize = true;
+            this.metroLabel1.Location = new System.Drawing.Point(0, 8);
+            this.metroLabel1.Name = "metroLabel1";
+            this.metroLabel1.Size = new System.Drawing.Size(245, 19);
+            this.metroLabel1.TabIndex = 10;
+            this.metroLabel1.Text = "한글패치를 시킬 언어를 설정해주세요";
+            // 
+            // metroRadioButton2
+            // 
+            this.metroRadioButton2.AutoSize = true;
+            this.metroRadioButton2.Location = new System.Drawing.Point(15, 58);
+            this.metroRadioButton2.Name = "metroRadioButton2";
+            this.metroRadioButton2.Size = new System.Drawing.Size(118, 15);
+            this.metroRadioButton2.TabIndex = 3;
+            this.metroRadioButton2.Text = "프랑스어 (French)";
+            this.metroRadioButton2.UseSelectable = true;
+            // 
+            // metroRadioButton1
+            // 
+            this.metroRadioButton1.AutoSize = true;
+            this.metroRadioButton1.Checked = true;
+            this.metroRadioButton1.Location = new System.Drawing.Point(15, 37);
+            this.metroRadioButton1.Name = "metroRadioButton1";
+            this.metroRadioButton1.Size = new System.Drawing.Size(96, 15);
+            this.metroRadioButton1.TabIndex = 2;
+            this.metroRadioButton1.TabStop = true;
+            this.metroRadioButton1.Text = "영어 (English)";
+            this.metroRadioButton1.UseSelectable = true;
             // 
             // nextButton2
             // 
@@ -306,12 +372,13 @@
             // metroLabel8
             // 
             this.metroLabel8.AutoSize = true;
+            this.metroLabel8.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel8.Location = new System.Drawing.Point(301, 53);
             this.metroLabel8.Name = "metroLabel8";
-            this.metroLabel8.Size = new System.Drawing.Size(236, 171);
+            this.metroLabel8.Size = new System.Drawing.Size(237, 209);
             this.metroLabel8.TabIndex = 7;
             this.metroLabel8.Text = "KAMIKADzE\r\n    한국서버 paz, xlsm 복호화/암호화 \r\n    알고리즘 제공\r\nAssassin*\r\n    한국서버 아이디제공\r\nU" +
-    "nnamed*\r\n    한국클라이언트제공  \r\nWingless\r\n    기존한글화파일 참고";
+    "nnamed*\r\n    한국클라이언트제공  \r\nWingless\r\n    기존한글화파일 참고\r\nVencere\r\n    디스코드 배포게시판 제공";
             // 
             // metroLabel7
             // 
@@ -522,6 +589,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.metroTabPage2.ResumeLayout(false);
             this.metroTabPage2.PerformLayout();
+            this.metroPanel1.ResumeLayout(false);
+            this.metroPanel1.PerformLayout();
             this.metroTabPage3.ResumeLayout(false);
             this.metroTabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fontPreview)).EndInit();
@@ -567,6 +636,11 @@
         private MetroFramework.Controls.MetroButton uninstallButton;
         private MetroFramework.Controls.MetroLabel agreementText;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private MetroFramework.Controls.MetroLabel versionLabel;
+        private MetroFramework.Controls.MetroPanel metroPanel1;
+        private MetroFramework.Controls.MetroRadioButton metroRadioButton2;
+        private MetroFramework.Controls.MetroRadioButton metroRadioButton1;
+        private MetroFramework.Controls.MetroLabel metroLabel1;
+        private MetroFramework.Controls.MetroRadioButton metroRadioButton4;
+        private MetroFramework.Controls.MetroRadioButton metroRadioButton3;
     }
 }
