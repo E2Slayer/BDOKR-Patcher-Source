@@ -39,14 +39,6 @@ namespace BDOKRPatch
         private string selectedPath = @"";
         private bool comChecker = false;
 
-        /*
-        private int steam = 0;
-        private string installPath = @"";
-        private int validatedirectory = 0;
-        private int font = 1;
-        private int languageselection = 0;
-        */
-
         private readonly Queue qt = new Queue();
         private int installType = 0;
 
