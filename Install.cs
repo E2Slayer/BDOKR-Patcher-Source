@@ -31,6 +31,8 @@ namespace BDOKRPatch
         private Queue qt = new Queue();
         private int installType = 0;
 
+       
+
         public Install()
         {
             InitializeComponent();
@@ -41,32 +43,6 @@ namespace BDOKRPatch
         private void locationButton_Click(object sender, EventArgs e)
         {
             Communication_Checker();
-            // var fileContent = string.Empty;
-            // var filePath = string.Empty;
-
-            /*
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-                openFileDialog.FilterIndex = 2;
-                openFileDialog.RestoreDirectory = true;
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    //Get the path of specified file
-                    filePath = openFileDialog.FileName;
-
-                    //Read the contents of the file into a stream
-                    var fileStream = openFileDialog.OpenFile();
-
-                    using (StreamReader reader = new StreamReader(fileStream))
-                    {
-                        fileContent = reader.ReadToEnd();
-                    }
-                }
-            }
-            */
 
             using (var fbd = new FolderBrowserDialog())
             {
@@ -81,25 +57,17 @@ namespace BDOKRPatch
 
                     if (File.Exists(fbd.SelectedPath + @"\ads\languagedata_en.loc"))
                     {
-                       // System.Windows.Forms.MessageBox.Show("올바른 경로인걸 확인했습니다. 진행하셔도 좋습니다.", "Message");
                         MetroFramework.MetroMessageBox.Show(this, "올바른 Black Desert Online 폴더를 찾았습니다. \n진행하셔도 좋습니다", "정보", MessageBoxButtons.OK, MessageBoxIcon.None);
                         nextButton2.Enabled = true;
                         selectedPath = fbd.SelectedPath;
                     }
                     else
                     {
-                       // System.Windows.Forms.MessageBox.Show("Black Desert Online 폴더를 제대로 선택하셨는지 확인해주세요", "Message");
                         MetroFramework.MetroMessageBox.Show(this, "Black Desert Online 폴더를 제대로 선택하셨는지 확인해주세요", "경고", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //locationTextBox.Text = "경로 설정을 다시해주세요";
                         nextButton2.Enabled = false;
                     }
-
-
-
                 }
             }
-
-           // MessageBox.Show(fileContent, "File Content at path: " + filePath, MessageBoxButtons.OK);
         }
 
         private void steamRadio_CheckedChanged(object sender, EventArgs e)
@@ -228,9 +196,6 @@ namespace BDOKRPatch
             }
             catch (Exception ex)
             {
-                //System.Windows.Forms.MessageBox.Show("\n Download Error :" + ex.Message.ToString(), "Message");
-               // logTextBox.Text += "\n Download Error: " + ex.Message.ToString() + "\n";
-
                 logTextBox.AppendText(Environment.NewLine);
                 logTextBox.AppendText("[다운로드에러 - " + DateTime.Now.ToString("h:mm:ss tt") + "] " + ex.Message.ToString() );
                 logTextBox.AppendText(Environment.NewLine);
@@ -278,12 +243,6 @@ namespace BDOKRPatch
                     logTextBox.AppendText("===============================================================");
                 }
             }
-            
-
-            //logTextBox.Text += "\n Download Completed " + sender.ToString() + "\n";
-           // string fileIdentifier = ((System.Net.WebClient)(sender)).QueryString["file"];
-            //logTextBox.AppendText(Environment.NewLine);
-            //logTextBox.AppendText("[다운로드완료 - " + DateTime.Now.ToString("h:mm:ss tt") + "] " + fileIdentifier);
         }
 
         private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -422,26 +381,26 @@ namespace BDOKRPatch
             "배민 을지로체"
              */
 
-            string fontURL = @"";
+             string fontURL = @"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/font/";
              switch (FontComboBox.SelectedIndex)
              {
                  case 0: // ridi
-                    fontURL = @"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/font/RIDIBatang.ttf";
+                    fontURL += @"RIDIBatang.ttf";
                      break;
                  case 1: // nanum square
-                    fontURL = @"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/font/NanumSquareB.ttf";
+                    fontURL += @"NanumSquareB.ttf";
                     break;
                  case 2: // nanum barun
-                    fontURL = @"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/font/NanumBarunGothic.ttf";
+                    fontURL += @"NanumBarunGothic.ttf";
                     break;
                  case 3: // yangjin
-                    fontURL = @"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/font/YangJin.ttf";
+                    fontURL += @"YangJin.ttf";
                     break;
                  case 4: // bing
-                    fontURL = @"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/font/Binggrae%E2%85%A1-Bold.ttf";
+                    fontURL += @"Binggrae%E2%85%A1-Bold.ttf";
                     break;
                  case 5: // bemin
-                    fontURL = @"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/font/BMEULJIROTTF.ttf";
+                    fontURL += @"BMEULJIROTTF.ttf";
                     break;
              }
 
@@ -542,9 +501,6 @@ namespace BDOKRPatch
                 }
 
                 selectedPath = installPath;
-
-
-                //Console.WriteLine(languageselection);
             }
             else
             {
@@ -559,17 +515,7 @@ namespace BDOKRPatch
             var url = "https://raw.githubusercontent.com/E2Slayer/BDOKRPatchData/master/Release/user.ini";
             var textFromFile = (new WebClient()).DownloadString(url);
             string validation = "3053";
-
-
-            if (string.Equals(textFromFile, validation))
-            {
-                comChecker = true;
-
-            }
-            else
-            {
-                comChecker = false;
-            }
+            comChecker = string.Equals(textFromFile, validation);
         }
 
         private void Communication_Checker()
@@ -595,14 +541,13 @@ namespace BDOKRPatch
             {
                 try
                 {
+                    string[] regionList = { "en", "fr", "de", "sp" }; //region list 
+
                     patchButton.Enabled = false;
-                    qt.Clear();
+                    qt.Clear(); //clear the queue 
                     
 
                     string currentLocation = selectedPath + @"\";
-                   // string pathAds = currentLocation + @"\ads";
-
-
                     System.IO.DirectoryInfo di = new DirectoryInfo(currentLocation + @"prestringtable\");
                     if (Directory.Exists(currentLocation + @"prestringtable\"))
                     {
@@ -612,12 +557,12 @@ namespace BDOKRPatch
 
                         foreach (FileInfo file in di.GetFiles())
                         {
-                            file.Delete();
+                            file.Delete(); // Delete all files in the folder
                         }
 
                         foreach (DirectoryInfo dir in di.GetDirectories())
                         {
-                            dir.Delete(true);
+                            dir.Delete(true); // Now delete folders
                         }
 
                     }
@@ -632,6 +577,23 @@ namespace BDOKRPatch
                     logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] locale 원본파일들 다운로드 시작...");
 
 
+                    foreach (var region in regionList)
+                    {
+                        Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Original/languagedata_"+ region +".loc", currentLocation + @"ads\languagedata_"+ region +".loc", "languagedata_" + region + ".loc");
+                        qt.Enqueue(true);
+
+                        if (File.Exists(currentLocation + @"ads\languagedata_" + region + "_backup.loc"))
+                        {
+                            File.Delete(currentLocation + @"ads\languagedata_" + region + "_backup.loc");
+                        }
+
+                        if (File.Exists(currentLocation + @"ads\languagedata_" + region + "_toKR.PAZ"))
+                        {
+                            File.Delete(currentLocation + @"ads\languagedata_" + region + "_toKR.PAZ");
+                        }
+                    }
+
+                    /*
                     Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Original/languagedata_en.loc", currentLocation + @"ads\languagedata_en.loc", "languagedata_en.loc");
                     qt.Enqueue(true);
                     Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Original/languagedata_fr.loc", currentLocation + @"ads\languagedata_fr.loc", "languagedata_fr.loc");
@@ -640,8 +602,9 @@ namespace BDOKRPatch
                     qt.Enqueue(true);
                     Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Original/languagedata_sp.loc", currentLocation + @"ads\languagedata_sp.loc", "languagedata_sp.loc");
                     qt.Enqueue(true);
+                    */
                    
-
+                    /*
                     if (File.Exists(currentLocation + @"ads\languagedata_en_backup.loc"))
                     {
                         File.Delete(currentLocation + @"ads\languagedata_en_backup.loc");
@@ -665,6 +628,7 @@ namespace BDOKRPatch
                     logTextBox.AppendText(Environment.NewLine);
                     logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] 백업파일 삭제중...");
 
+                    
 
                     if (File.Exists(currentLocation + @"ads\languagedata_en_toKR.PAZ"))
                     {
@@ -685,12 +649,9 @@ namespace BDOKRPatch
                     {
                         File.Delete(currentLocation + @"ads\languagedata_sp_toKR.PAZ");
                     }
-
+                    */
                     logTextBox.AppendText(Environment.NewLine);
                     logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] 번역 PAZ파일 삭제중...");
-
-
-
                 }
                 catch (Exception exception)
                 {
@@ -705,15 +666,13 @@ namespace BDOKRPatch
                 logTextBox.AppendText(Environment.NewLine);
                 logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] 한글패치 삭제 취소");
             }
-
-
-
         }
 
         private void agreementText_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("BDO Korean Patch 설정에 오신것을 환영합니다.\r\n먼저, 진행하기전 주의사항을 읽어주세요.\r\n\r\nBlackDesert Online 의 Term of Use 따르면\r\n12.1.7. Modification of the Game Client\r\nThe User is only allowed to use third party programs affecting \r\nthe Game Client to the extent such programs do not significantly \r\naffect the gameplay and do not violate any provision of the Agreement. \r\nThe use of any such use third party program must be validated first by \r\nKakao Games Europe. For that purpose, the User should \r\ncontact customer support before installing \r\nand using such use third party program.\r\n라고 명시되어 있습니다.\r\n\r\n이 한글패치는 대화 및 언어 스크립트쪽만 변경하기때문에\r\n정지의 매우 희박하고 또한 그 전에 한글패치 정지 전례가 없었습니다만\r\n한글패치가 언제나 100% 안전한건 아닙니다.\r\n하지만, 99.9% 정도는 정지당할확률이 없다고 생각합니다.\r\n\r\n\r\n추후의 이 프로그램인하여 발생되는 \r\n모든 문제는 사용자 본인에게 있습니다.\r\n\r\nI, E2Slayer(Developer), shall not be responsible, \r\nnor have any liability whatsoever, \r\nany TOS violation under BlackdesertOnline\r\n\r\n", "Agreement", MessageBoxButtons.OK,MessageBoxIcon.Information);
-           // MetroFramework.MetroMessageBox.Show(this, "BDO Korean Patch 설정에 오신것을 환영합니다.\r\n먼저, 진행하기전 주의사항을 읽어주세요.\r\n\r\nBlackDesert Online 의 Term of Use 따르면\r\n12.1.7. Modification of the Game Client\r\nThe User is only allowed to use third party programs affecting \r\nthe Game Client to the extent such programs do not significantly \r\naffect the gameplay and do not violate any provision of the Agreement. \r\nThe use of any such use third party program must be validated first by \r\nKakao Games Europe. For that purpose, the User should \r\ncontact customer support before installing \r\nand using such use third party program.\r\n라고 명시되어 있습니다.\r\n\r\n이 한글패치는 대화 및 언어 스크립트쪽만 변경하기때문에\r\n정지의 매우 희박하고 또한 그 전에 한글패치 정지 전례가 없었습니다만\r\n한글패치로 인해서 정지를 먹으실 가능성은 언제나 존재합니다.\r\n\r\n\r\n추후의 이 프로그램인하여 발생되는 \r\n모든 문제는 사용자 본인에게 있습니다.\r\n\r\nI, E2Slayer(Developer), shall not be responsible, \r\nnor have any liability whatsoever, \r\nany TOS violation under BlackdesertOnline\r\n\r\n", "정보", MessageBoxButtons.OK, MessageBoxIcon.None);
+            MessageBox.Show(
+                "BDO Korean Patch 설정에 오신것을 환영합니다.\r\n먼저, 진행하기전 주의사항을 읽어주세요.\r\n\r\nBlackDesert Online 의 Term of Use 따르면\r\n12.1.7. Modification of the Game Client\r\nThe User is only allowed to use third party programs affecting \r\nthe Game Client to the extent such programs do not significantly \r\naffect the gameplay and do not violate any provision of the Agreement. \r\nThe use of any such use third party program must be validated first by \r\nKakao Games Europe. For that purpose, the User should \r\ncontact customer support before installing \r\nand using such use third party program.\r\n라고 명시되어 있습니다.\r\n\r\n이 한글패치는 대화 및 언어 스크립트쪽만 변경하기때문에\r\n정지의 매우 희박하고 또한 그 전에 한글패치 정지 전례가 없었습니다만\r\n한글패치가 언제나 100% 안전한건 아닙니다.\r\n하지만, 99.9% 정도는 정지당할확률이 없다고 생각합니다.\r\n\r\n\r\n추후의 이 프로그램인하여 발생되는 \r\n모든 문제는 사용자 본인에게 있습니다.\r\n\r\nI, E2Slayer(Developer), shall not be responsible, \r\nnor have any liability whatsoever, \r\nany TOS violation under BlackdesertOnline\r\n\r\n",
+                "Agreement", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

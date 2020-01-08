@@ -12,8 +12,6 @@ using System.Windows.Forms;
 using AutoUpdaterDotNET;
 
 
-//using AutoUpdaterDotNET;
-
 namespace BDOKRPatch
 {
     public partial class Update : MetroFramework.Forms.MetroForm
@@ -27,37 +25,45 @@ namespace BDOKRPatch
         
         private void Update_Load(object sender, EventArgs e)
         {
-
+            // Initializing
             logTextBox.AppendText(Environment.NewLine);
             logTextBox.AppendText("통신서버와 연결중... ");
-            // Use for disable or enable 
+            
+            // Getting context from the server 
             var url = "https://raw.githubusercontent.com/E2Slayer/BDOKRPatchData/master/Release/user.ini";
             var textFromFile = (new WebClient()).DownloadString(url);
+
+            // Validation code is 3053
             string validation = "3053";
 
      
 
+            // if the text from the server and validation code are matched
             if (string.Equals(textFromFile, validation))
             {
+
+                // Display message of succeession 
                 logTextBox.AppendText(Environment.NewLine);
                 logTextBox.AppendText("통신서버와 연결성공 ! ");
 
+                // Start the auto-updater 
                 logTextBox.AppendText(Environment.NewLine);
                 logTextBox.AppendText("업데이트 서버와 통신시작 " + DateTime.Now.ToString("h:mm:ss tt"));
                 
+                // Start the updater based on github config.xml 
                 AutoUpdater.Start("https://raw.githubusercontent.com/E2Slayer/BDOKRPatchData/master/Release/config.xml");
+
+                // Register update eveent
                 AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
             }
             else
             {
+
+                // if the validation fails, do not update
                 logTextBox.AppendText(Environment.NewLine);
                 logTextBox.AppendText("통신서버와 연결실패 ");
-
                 MetroFramework.MetroMessageBox.Show(this, "통신서버와 연결을 실패했습니다. \n잠시뒤에 시도해주세요.", "경고", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
-
 
         }
 
