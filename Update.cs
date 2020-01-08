@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+﻿using AutoUpdaterDotNET;
+using System;
 using System.Net;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using AutoUpdaterDotNET;
 
 
 namespace BDOKRPatch
@@ -22,13 +14,13 @@ namespace BDOKRPatch
         }
 
         private bool isUpdated = false;
-        
+
         private void Update_Load(object sender, EventArgs e)
         {
             // Initializing
             logTextBox.AppendText(Environment.NewLine);
             logTextBox.AppendText("통신서버와 연결중... ");
-            
+
             // Getting context from the server 
             var url = "https://raw.githubusercontent.com/E2Slayer/BDOKRPatchData/master/Release/user.ini";
             var textFromFile = (new WebClient()).DownloadString(url);
@@ -36,7 +28,7 @@ namespace BDOKRPatch
             // Validation code is 3053
             string validation = "3053";
 
-     
+
 
             // if the text from the server and validation code are matched
             if (string.Equals(textFromFile, validation))
@@ -49,7 +41,7 @@ namespace BDOKRPatch
                 // Start the auto-updater 
                 logTextBox.AppendText(Environment.NewLine);
                 logTextBox.AppendText("업데이트 서버와 통신시작 " + DateTime.Now.ToString("h:mm:ss tt"));
-                
+
                 // Start the updater based on github config.xml 
                 AutoUpdater.Start("https://raw.githubusercontent.com/E2Slayer/BDOKRPatchData/master/Release/config.xml");
 

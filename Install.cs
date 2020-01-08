@@ -1,37 +1,56 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
-using System.Xml.Linq;
 
 namespace BDOKRPatch
 {
+
+
     public partial class Install : MetroFramework.Forms.MetroForm
     {
+        class ConfigStructure
+        {
+            public ConfigStructure(int steam, string installPath, int validatedirectory, int font, int languageselection)
+            {
+                Steam = steam;
+                InstallPath = installPath;
+                Validatedirectory = validatedirectory;
+                Font = font;
+                Languageselection = languageselection;
+            }
+
+            public int Steam { get; set; }
+            public string InstallPath { get; set; }
+            public int Validatedirectory { get; set; }
+            public int Font { get; set; }
+            public int Languageselection { get; set; }
+
+
+        }
+
+
+        private readonly ConfigStructure configList = new ConfigStructure(0, "None", 0, 1, 0);
 
         private string selectedPath = @"";
         private bool comChecker = false;
 
+        /*
         private int steam = 0;
         private string installPath = @"";
         private int validatedirectory = 0;
         private int font = 1;
         private int languageselection = 0;
+        */
 
-        private Queue qt = new Queue();
+        private readonly Queue qt = new Queue();
         private int installType = 0;
 
-       
+
 
         public Install()
         {
@@ -88,7 +107,7 @@ namespace BDOKRPatch
             this.metroTabPage2.Parent = this.metroTabControl1;
             this.metroTabPage2.Enabled = true;
 
-            if (validatedirectory == 1)
+            if (configList.Validatedirectory == 1)
             {
                 MetroFramework.MetroMessageBox.Show(this, "이전 설치정보를 발견했습니다. \n한글패치탭으로 바로 넘어갑니다.\n\n다른 설정을 바꾸시고 싶으시면\n탭을 수동으로 선택하시면 설정을 바꿀 수 있습니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 metroTabControl1.SelectedTab = metroTabPage4;
@@ -97,15 +116,15 @@ namespace BDOKRPatch
 
                 this.metroTabPage4.Enabled = true;
 
-                if (steam == 1)
+                if (configList.Steam == 1)
                 {
                     steamRadio.Checked = true;
                 }
 
-                locationTextBox.Text = installPath;
-                FontComboBox.SelectedIndex = font;
+                locationTextBox.Text = configList.InstallPath;
+                FontComboBox.SelectedIndex = configList.Font;
 
-                switch (languageselection)
+                switch (configList.Languageselection)
                 {
                     case 0: //english
                         metroRadioButton1.Checked = true;
@@ -131,7 +150,7 @@ namespace BDOKRPatch
             metroTabControl1.SelectedTab = metroTabPage3;
             this.metroTabPage3.Parent = this.metroTabControl1;
             this.metroTabPage3.Enabled = true;
-            
+
         }
 
 
@@ -180,16 +199,16 @@ namespace BDOKRPatch
         public void Download(string url, string location, string display)
         {
 
-           // Console.WriteLine("Download Started");
+            // Console.WriteLine("Download Started");
 
             logTextBox.AppendText(Environment.NewLine);
-            logTextBox.AppendText("[다운로드시작 - "+ DateTime.Now.ToString("h:mm:ss tt") + "] "+ display );
-   
+            logTextBox.AppendText("[다운로드시작 - " + DateTime.Now.ToString("h:mm:ss tt") + "] " + display);
+
             WebClient webClient = new WebClient();
-           // ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
+            // ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            webClient.DownloadFileCompleted += Completed;
             webClient.QueryString.Add("file", display); // here you can add values
-           // webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
+                                                        // webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
             try
             {
                 webClient.DownloadFileAsync(new Uri(url), location);
@@ -197,7 +216,7 @@ namespace BDOKRPatch
             catch (Exception ex)
             {
                 logTextBox.AppendText(Environment.NewLine);
-                logTextBox.AppendText("[다운로드에러 - " + DateTime.Now.ToString("h:mm:ss tt") + "] " + ex.Message.ToString() );
+                logTextBox.AppendText("[다운로드에러 - " + DateTime.Now.ToString("h:mm:ss tt") + "] " + ex.Message);
                 logTextBox.AppendText(Environment.NewLine);
                 logTextBox.AppendText("[다운로드에러파일] " + display);
                 logTextBox.AppendText(Environment.NewLine);
@@ -211,7 +230,7 @@ namespace BDOKRPatch
 
             if (qt.Count >= 1)
             {
-                string fileIdentifier = ((System.Net.WebClient)(sender)).QueryString["file"];
+                string fileIdentifier = ((WebClient)(sender)).QueryString["file"];
                 logTextBox.AppendText(Environment.NewLine);
                 logTextBox.AppendText("[다운로드완료] - " + DateTime.Now.ToString("h:mm:ss tt") + "] " + fileIdentifier);
                 qt.Dequeue();
@@ -245,11 +264,6 @@ namespace BDOKRPatch
             }
         }
 
-        private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-        {
-            //logTextBox.Text += 
-        }
-
         private void patchButton_Click(object sender, EventArgs e)
         {
             Communication_Checker();
@@ -263,17 +277,11 @@ namespace BDOKRPatch
             doc.Load(Environment.CurrentDirectory + "\\config.xml");
             XmlNodeList xNodeList = doc.SelectNodes("/root");
             //MetroFramework.MetroMessageBox.Show(this, "config.xml을 열수없습니다. \n프로그램을 업데이트해주세요", "경고", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            if (doc != null)
-            {
-                if (steamRadio.Checked)
-                {
-                    doc.SelectSingleNode("//root/steam").InnerText = "1";
-                }
-                else
-                {
-                    doc.SelectSingleNode("//root/steam").InnerText = "0";
-                }
 
+
+            try
+            {
+                doc.SelectSingleNode("//root/steam").InnerText = steamRadio.Checked ? "1" : "0";
                 doc.SelectSingleNode("//root/installpath").InnerText = selectedPath;
                 doc.SelectSingleNode("//root/validatedirectory").InnerText = "1";
                 doc.SelectSingleNode("//root/font").InnerText = (FontComboBox.SelectedIndex).ToString();
@@ -303,10 +311,16 @@ namespace BDOKRPatch
 
                 doc.SelectSingleNode("//root/languageselection").InnerText = (lang).ToString();
 
-
-                doc.Save(Environment.CurrentDirectory + "\\config.xml");
-
             }
+            catch (Exception exception)
+            {
+                MetroFramework.MetroMessageBox.Show(this, "config.xml 저장하는 도중 에러가 발생했습니다. \n이 메세지를 개발자에게 보여주세요. \n" + exception, "경고", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
+
+            doc.Save(Environment.CurrentDirectory + "\\config.xml");
+
+            
 
             // selectedPath = locationTextBox.Text;
             string currentLocation = selectedPath + @"\";
@@ -332,7 +346,7 @@ namespace BDOKRPatch
                 else
                 {
                     // Try to create the directory.
-                    DirectoryInfo diAds = Directory.CreateDirectory(pathAds);
+                    Directory.CreateDirectory(pathAds);
                     //Console.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(path));
                     logTextBox.AppendText(Environment.NewLine);
                     logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] ads 폴더 생성완료");
@@ -363,7 +377,7 @@ namespace BDOKRPatch
                 logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] languagedata_en.loc 원본 백업완료");
             }
             */
-            
+
 
             Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/languagedata_en_toKR.PAZ", currentLocation + @"ads\languagedata_" + selectedLangStr + "_toKR.PAZ", "languagedata_" + selectedLangStr + "_toKR.PAZ");
             qt.Enqueue(true);
@@ -381,64 +395,64 @@ namespace BDOKRPatch
             "배민 을지로체"
              */
 
-             string fontURL = @"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/font/";
-             switch (FontComboBox.SelectedIndex)
-             {
-                 case 0: // ridi
+            string fontURL = @"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Data/font/";
+            switch (FontComboBox.SelectedIndex)
+            {
+                case 0: // ridi
                     fontURL += @"RIDIBatang.ttf";
-                     break;
-                 case 1: // nanum square
+                    break;
+                case 1: // nanum square
                     fontURL += @"NanumSquareB.ttf";
                     break;
-                 case 2: // nanum barun
+                case 2: // nanum barun
                     fontURL += @"NanumBarunGothic.ttf";
                     break;
-                 case 3: // yangjin
+                case 3: // yangjin
                     fontURL += @"YangJin.ttf";
                     break;
-                 case 4: // bing
+                case 4: // bing
                     fontURL += @"Binggrae%E2%85%A1-Bold.ttf";
                     break;
-                 case 5: // bemin
+                case 5: // bemin
                     fontURL += @"BMEULJIROTTF.ttf";
                     break;
-             }
+            }
 
-             
+
             string path = currentLocation + @"\prestringtable";
             try
             {
-                 // Determine whether the directory exists.
-                 if (Directory.Exists(path))
-                 {
-                     logTextBox.AppendText(Environment.NewLine);
-                     logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] prestringtable 폴더가 이미 존재합니다. 폴더를 생성하지 않습니다.");
-                   // Console.WriteLine("That path exists already.");
-                     
-                 }
-                 else
-                 {
-                     // Try to create the directory.
-                     DirectoryInfo di = Directory.CreateDirectory(path);
-                     //Console.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(path));
-                     logTextBox.AppendText(Environment.NewLine);
-                     logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] prestringtable 폴더 생성완료");
+                // Determine whether the directory exists.
+                if (Directory.Exists(path))
+                {
+                    logTextBox.AppendText(Environment.NewLine);
+                    logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] prestringtable 폴더가 이미 존재합니다. 폴더를 생성하지 않습니다.");
+                    // Console.WriteLine("That path exists already.");
 
-                     path += @"\font";
-                     DirectoryInfo di2 = Directory.CreateDirectory(path);
-                     //onsole.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(path));
-                     logTextBox.AppendText(Environment.NewLine);
-                     logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] font 폴더 생성완료");
-                 }
+                }
+                else
+                {
+                    // Try to create the directory.
+                    Directory.CreateDirectory(path);
+                    //Console.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(path));
+                    logTextBox.AppendText(Environment.NewLine);
+                    logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] prestringtable 폴더 생성완료");
+
+                    path += @"\font";
+                    Directory.CreateDirectory(path);
+                    //onsole.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(path));
+                    logTextBox.AppendText(Environment.NewLine);
+                    logTextBox.AppendText("[정보 - " + DateTime.Now.ToString("h:mm:ss tt") + "] font 폴더 생성완료");
+                }
 
             }
-            catch (Exception er) 
+            catch (Exception er)
             {
-                 //Console.WriteLine("The process failed: {0}", er.ToString());
-                 logTextBox.AppendText(Environment.NewLine);
-                 logTextBox.AppendText("[에러 - " + DateTime.Now.ToString("h:mm:ss tt") + "] 폴더 생성중 에러가 발생했습니다");
-                 logTextBox.AppendText(Environment.NewLine);
-                 logTextBox.AppendText(er.ToString());
+                //Console.WriteLine("The process failed: {0}", er.ToString());
+                logTextBox.AppendText(Environment.NewLine);
+                logTextBox.AppendText("[에러 - " + DateTime.Now.ToString("h:mm:ss tt") + "] 폴더 생성중 에러가 발생했습니다");
+                logTextBox.AppendText(Environment.NewLine);
+                logTextBox.AppendText(er.ToString());
             }
 
 
@@ -479,34 +493,41 @@ namespace BDOKRPatch
             if (!File.Exists(Environment.CurrentDirectory + "\\config.xml"))
             {
                 MetroFramework.MetroMessageBox.Show(this, "config.xml을 열수없습니다. \n프로그램을 재설치해주세요", "경고", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                System.Windows.Forms.Application.ExitThread();
-                System.Windows.Forms.Application.Exit();
+                Application.ExitThread();
+                Application.Exit();
             }
 
             XmlDocument doc = new XmlDocument();
 
-            doc.Load(Environment.CurrentDirectory+"\\config.xml");
+            doc.Load(Environment.CurrentDirectory + "\\config.xml");
             XmlNodeList xNodeList = doc.SelectNodes("/root");
 
             if (xNodeList != null)
             {
                 foreach (XmlNode xNode in xNodeList)
                 {
-                    //XmlConvert.ToBoolean(xNode["validatedirectory"].InnerText);
-                    steam = XmlConvert.ToInt32(xNode["steam"].InnerText);
-                    installPath = xNode["installpath"].InnerText;
-                    validatedirectory = XmlConvert.ToInt32(xNode["validatedirectory"].InnerText);
-                    font = XmlConvert.ToInt32(xNode["font"].InnerText);
-                    languageselection = XmlConvert.ToInt32(xNode["languageselection"].InnerText);
+                    try
+                    {
+                        configList.Steam = XmlConvert.ToInt32(xNode["steam"]?.InnerText ?? throw new InvalidOperationException());
+                        configList.InstallPath = xNode["installpath"]?.InnerText;
+                        configList.Validatedirectory = XmlConvert.ToInt32(xNode["validatedirectory"]?.InnerText ?? throw new InvalidOperationException());
+                        configList.Font = XmlConvert.ToInt32(xNode["font"]?.InnerText ?? throw new InvalidOperationException());
+                        configList.Languageselection = XmlConvert.ToInt32(xNode["languageselection"]?.InnerText ?? throw new InvalidOperationException());
+                    }
+                    catch (Exception exception)
+                    {
+                        MetroFramework.MetroMessageBox.Show(this, "config.xml을 여는 도중 에러가 발생했습니다. \n프로그램을 재설치해주세요. \n" + exception, "경고", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        throw;
+                    }
                 }
 
-                selectedPath = installPath;
+                selectedPath = configList.InstallPath;
             }
             else
             {
-                MetroFramework.MetroMessageBox.Show(this, "config.xml을 열수없습니다. \n프로그램을 업데이트해주세요", "경고", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                System.Windows.Forms.Application.ExitThread();
-                System.Windows.Forms.Application.Exit();
+                MetroFramework.MetroMessageBox.Show(this, "config.xml을 찾을 수 없습니다. \n프로그램을 재설치해주세요.", "경고", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.ExitThread();
+                Application.Exit();
             }
         }
 
@@ -520,12 +541,12 @@ namespace BDOKRPatch
 
         private void Communication_Checker()
         {
-            if (comChecker) 
+            if (comChecker)
                 return;
 
             MetroFramework.MetroMessageBox.Show(this, "통신서버와 연결을 실패했습니다. \n잠시뒤에 시도해주세요.", "경고", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            System.Windows.Forms.Application.ExitThread();
-            System.Windows.Forms.Application.Exit();
+            Application.ExitThread();
+            Application.Exit();
         }
 
         private void uninstallButton_Click(object sender, EventArgs e)
@@ -534,7 +555,7 @@ namespace BDOKRPatch
             installType = 2;
             DialogResult dialogResult =
                 MessageBox.Show(
-                    $"BDO 한글패치된 파일들을 삭제합니다. \n모든 패치파일들은 원상복귀가 됩니다. \n진행하시겠습니까? ", @"한글패치 삭제",
+                    "BDO 한글패치된 파일들을 삭제합니다. \n모든 패치파일들은 원상복귀가 됩니다. \n진행하시겠습니까? ", @"한글패치 삭제",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Information);
             if (dialogResult.Equals(DialogResult.Yes) || dialogResult.Equals(DialogResult.OK))
@@ -545,10 +566,10 @@ namespace BDOKRPatch
 
                     patchButton.Enabled = false;
                     qt.Clear(); //clear the queue 
-                    
+
 
                     string currentLocation = selectedPath + @"\";
-                    System.IO.DirectoryInfo di = new DirectoryInfo(currentLocation + @"prestringtable\");
+                    DirectoryInfo di = new DirectoryInfo(currentLocation + @"prestringtable\");
                     if (Directory.Exists(currentLocation + @"prestringtable\"))
                     {
                         logTextBox.AppendText(Environment.NewLine);
@@ -579,7 +600,7 @@ namespace BDOKRPatch
 
                     foreach (var region in regionList)
                     {
-                        Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Original/languagedata_"+ region +".loc", currentLocation + @"ads\languagedata_"+ region +".loc", "languagedata_" + region + ".loc");
+                        Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Original/languagedata_" + region + ".loc", currentLocation + @"ads\languagedata_" + region + ".loc", "languagedata_" + region + ".loc");
                         qt.Enqueue(true);
 
                         if (File.Exists(currentLocation + @"ads\languagedata_" + region + "_backup.loc"))
@@ -603,7 +624,7 @@ namespace BDOKRPatch
                     Download(@"https://github.com/E2Slayer/BDOKRPatchData/raw/master/Original/languagedata_sp.loc", currentLocation + @"ads\languagedata_sp.loc", "languagedata_sp.loc");
                     qt.Enqueue(true);
                     */
-                   
+
                     /*
                     if (File.Exists(currentLocation + @"ads\languagedata_en_backup.loc"))
                     {
