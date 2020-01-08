@@ -554,7 +554,7 @@ namespace BDOKRPatch
             {
                 try
                 {
-                    string[] regionList = { "en", "fr", "de", "sp" }; //region list 
+                    string[] regionList = { "en", "fr", "de", "sp" }; //region list, English, French, German, Spanish in respect to
 
                     patchButton.Enabled = false;
                     qt.Clear(); //clear the queue 
