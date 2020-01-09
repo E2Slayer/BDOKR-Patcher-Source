@@ -2,7 +2,7 @@
 # BDOKR-Patcher-Source
 A Soruce for BlackDesert Online Korean Patcher. 
 
-![](https://thumbs.gfycat.com/RigidHighlevelLamb-mobile.mp4)
+<img src="https://github.com/E2Slayer/BDOKR-Patcher-Source/raw/master/readme/preview.gif" title="ConsoleMemory Editor Image" alt="ConsoleMemory Editor Image">
 
 **Features**
 
