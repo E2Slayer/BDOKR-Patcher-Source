@@ -1,5 +1,8 @@
+
 # BDOKR-Patcher-Source
 A Soruce for BlackDesert Online Korean Patcher. 
+
+![](https://thumbs.gfycat.com/RigidHighlevelLamb-mobile.mp4)
 
 **Features**
 
@@ -11,7 +14,7 @@ A Soruce for BlackDesert Online Korean Patcher.
 - Save the user's selections and BlackDesert Online directory into config.xml for the next time
 
 
-> Dependencies
+**Dependencies**
 
 - Autoupdater.Net By <a href="https://github.com/ravibpatel/AutoUpdater.NET" target="_blank">`@ravibpatel`</a>
 - Metro Modern UI
