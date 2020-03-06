@@ -84,9 +84,9 @@
             this.metroTabControl1.Controls.Add(this.metroTabPage3);
             this.metroTabControl1.Controls.Add(this.metroTabPage4);
             this.metroTabControl1.Location = new System.Drawing.Point(21, 90);
-            this.metroTabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.metroTabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 0;
+            this.metroTabControl1.SelectedIndex = 2;
             this.metroTabControl1.Size = new System.Drawing.Size(772, 480);
             this.metroTabControl1.Style = MetroFramework.MetroColorStyle.Silver;
             this.metroTabControl1.TabIndex = 0;
@@ -102,7 +102,7 @@
             this.metroTabPage1.HorizontalScrollbarHighlightOnWheel = false;
             this.metroTabPage1.HorizontalScrollbarSize = 12;
             this.metroTabPage1.Location = new System.Drawing.Point(4, 38);
-            this.metroTabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.metroTabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.metroTabPage1.Name = "metroTabPage1";
             this.metroTabPage1.Size = new System.Drawing.Size(764, 438);
             this.metroTabPage1.TabIndex = 0;
@@ -115,7 +115,7 @@
             // 
             this.pictureBox1.Image = global::BDOKRPatch.Properties.Resources.KRLogo2;
             this.pictureBox1.Location = new System.Drawing.Point(28, 12);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(696, 342);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -137,7 +137,7 @@
             // nextButton1
             // 
             this.nextButton1.Location = new System.Drawing.Point(612, 393);
-            this.nextButton1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nextButton1.Margin = new System.Windows.Forms.Padding(4);
             this.nextButton1.Name = "nextButton1";
             this.nextButton1.Size = new System.Drawing.Size(112, 36);
             this.nextButton1.TabIndex = 7;
@@ -171,7 +171,7 @@
             this.metroTabPage2.HorizontalScrollbarHighlightOnWheel = false;
             this.metroTabPage2.HorizontalScrollbarSize = 12;
             this.metroTabPage2.Location = new System.Drawing.Point(4, 38);
-            this.metroTabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.metroTabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.metroTabPage2.Name = "metroTabPage2";
             this.metroTabPage2.Size = new System.Drawing.Size(764, 438);
             this.metroTabPage2.TabIndex = 1;
@@ -191,7 +191,7 @@
             this.metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
             this.metroPanel1.HorizontalScrollbarSize = 12;
             this.metroPanel1.Location = new System.Drawing.Point(4, 223);
-            this.metroPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.metroPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.metroPanel1.Name = "metroPanel1";
             this.metroPanel1.Size = new System.Drawing.Size(519, 192);
             this.metroPanel1.TabIndex = 10;
@@ -203,7 +203,7 @@
             // 
             this.metroRadioButton4.AutoSize = true;
             this.metroRadioButton4.Location = new System.Drawing.Point(20, 123);
-            this.metroRadioButton4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.metroRadioButton4.Margin = new System.Windows.Forms.Padding(4);
             this.metroRadioButton4.Name = "metroRadioButton4";
             this.metroRadioButton4.Size = new System.Drawing.Size(133, 17);
             this.metroRadioButton4.TabIndex = 12;
@@ -214,7 +214,7 @@
             // 
             this.metroRadioButton3.AutoSize = true;
             this.metroRadioButton3.Location = new System.Drawing.Point(20, 97);
-            this.metroRadioButton3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.metroRadioButton3.Margin = new System.Windows.Forms.Padding(4);
             this.metroRadioButton3.Name = "metroRadioButton3";
             this.metroRadioButton3.Size = new System.Drawing.Size(121, 17);
             this.metroRadioButton3.TabIndex = 11;
@@ -235,7 +235,7 @@
             // 
             this.metroRadioButton2.AutoSize = true;
             this.metroRadioButton2.Location = new System.Drawing.Point(20, 71);
-            this.metroRadioButton2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.metroRadioButton2.Margin = new System.Windows.Forms.Padding(4);
             this.metroRadioButton2.Name = "metroRadioButton2";
             this.metroRadioButton2.Size = new System.Drawing.Size(126, 17);
             this.metroRadioButton2.TabIndex = 3;
@@ -247,7 +247,7 @@
             this.metroRadioButton1.AutoSize = true;
             this.metroRadioButton1.Checked = true;
             this.metroRadioButton1.Location = new System.Drawing.Point(20, 46);
-            this.metroRadioButton1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.metroRadioButton1.Margin = new System.Windows.Forms.Padding(4);
             this.metroRadioButton1.Name = "metroRadioButton1";
             this.metroRadioButton1.Size = new System.Drawing.Size(103, 17);
             this.metroRadioButton1.TabIndex = 2;
@@ -259,7 +259,7 @@
             // 
             this.nextButton2.Enabled = false;
             this.nextButton2.Location = new System.Drawing.Point(649, 393);
-            this.nextButton2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nextButton2.Margin = new System.Windows.Forms.Padding(4);
             this.nextButton2.Name = "nextButton2";
             this.nextButton2.Size = new System.Drawing.Size(112, 36);
             this.nextButton2.TabIndex = 8;
@@ -270,7 +270,7 @@
             // locationButton
             // 
             this.locationButton.Location = new System.Drawing.Point(477, 185);
-            this.locationButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.locationButton.Margin = new System.Windows.Forms.Padding(4);
             this.locationButton.Name = "locationButton";
             this.locationButton.Size = new System.Drawing.Size(32, 31);
             this.locationButton.TabIndex = 7;
@@ -284,10 +284,10 @@
             // 
             // 
             this.locationTextBox.CustomButton.Image = null;
-            this.locationTextBox.CustomButton.Location = new System.Drawing.Point(569, 1);
-            this.locationTextBox.CustomButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.locationTextBox.CustomButton.Location = new System.Drawing.Point(427, 1);
+            this.locationTextBox.CustomButton.Margin = new System.Windows.Forms.Padding(5);
             this.locationTextBox.CustomButton.Name = "";
-            this.locationTextBox.CustomButton.Size = new System.Drawing.Size(39, 36);
+            this.locationTextBox.CustomButton.Size = new System.Drawing.Size(29, 29);
             this.locationTextBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.locationTextBox.CustomButton.TabIndex = 1;
             this.locationTextBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -296,7 +296,7 @@
             this.locationTextBox.Lines = new string[] {
         "C:\\Program Files (x86)\\Black Desert Online"};
             this.locationTextBox.Location = new System.Drawing.Point(12, 185);
-            this.locationTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.locationTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.locationTextBox.MaxLength = 32767;
             this.locationTextBox.Name = "locationTextBox";
             this.locationTextBox.PasswordChar = '\0';
@@ -337,7 +337,7 @@
             this.nonSteamRadio.AutoSize = true;
             this.nonSteamRadio.Checked = true;
             this.nonSteamRadio.Location = new System.Drawing.Point(24, 63);
-            this.nonSteamRadio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nonSteamRadio.Margin = new System.Windows.Forms.Padding(4);
             this.nonSteamRadio.Name = "nonSteamRadio";
             this.nonSteamRadio.Size = new System.Drawing.Size(219, 17);
             this.nonSteamRadio.TabIndex = 3;
@@ -350,7 +350,7 @@
             // 
             this.steamRadio.AutoSize = true;
             this.steamRadio.Location = new System.Drawing.Point(24, 89);
-            this.steamRadio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.steamRadio.Margin = new System.Windows.Forms.Padding(4);
             this.steamRadio.Name = "steamRadio";
             this.steamRadio.Size = new System.Drawing.Size(155, 17);
             this.steamRadio.TabIndex = 2;
@@ -372,7 +372,7 @@
             this.metroTabPage3.HorizontalScrollbarHighlightOnWheel = false;
             this.metroTabPage3.HorizontalScrollbarSize = 12;
             this.metroTabPage3.Location = new System.Drawing.Point(4, 38);
-            this.metroTabPage3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.metroTabPage3.Margin = new System.Windows.Forms.Padding(4);
             this.metroTabPage3.Name = "metroTabPage3";
             this.metroTabPage3.Size = new System.Drawing.Size(764, 438);
             this.metroTabPage3.TabIndex = 2;
@@ -384,7 +384,7 @@
             // nextButton3
             // 
             this.nextButton3.Location = new System.Drawing.Point(649, 393);
-            this.nextButton3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nextButton3.Margin = new System.Windows.Forms.Padding(4);
             this.nextButton3.Name = "nextButton3";
             this.nextButton3.Size = new System.Drawing.Size(112, 36);
             this.nextButton3.TabIndex = 9;
@@ -439,18 +439,19 @@
             // FontComboBox
             // 
             this.FontComboBox.FormattingEnabled = true;
-            this.FontComboBox.ItemHeight = 23;
+            this.FontComboBox.ItemHeight = 24;
             this.FontComboBox.Items.AddRange(new object[] {
             "리디바탕체",
             "나눔스퀘어체 Bold",
             "나눔바른고딕체",
             "양진체",
             "빙그래체2 Bold",
-            "배민 을지로체"});
+            "배민 을지로체",
+            "폰트선택안함"});
             this.FontComboBox.Location = new System.Drawing.Point(17, 46);
-            this.FontComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FontComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.FontComboBox.Name = "FontComboBox";
-            this.FontComboBox.Size = new System.Drawing.Size(317, 29);
+            this.FontComboBox.Size = new System.Drawing.Size(317, 30);
             this.FontComboBox.TabIndex = 2;
             this.FontComboBox.UseSelectable = true;
             this.FontComboBox.SelectedIndexChanged += new System.EventHandler(this.FontComboBox_SelectedIndexChanged);
@@ -459,7 +460,7 @@
             // 
             this.fontPreview.Image = global::BDOKRPatch.Properties.Resources.ridi;
             this.fontPreview.Location = new System.Drawing.Point(17, 150);
-            this.fontPreview.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.fontPreview.Margin = new System.Windows.Forms.Padding(4);
             this.fontPreview.Name = "fontPreview";
             this.fontPreview.Size = new System.Drawing.Size(319, 218);
             this.fontPreview.TabIndex = 4;
@@ -478,7 +479,7 @@
             this.metroTabPage4.HorizontalScrollbarHighlightOnWheel = false;
             this.metroTabPage4.HorizontalScrollbarSize = 12;
             this.metroTabPage4.Location = new System.Drawing.Point(4, 38);
-            this.metroTabPage4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.metroTabPage4.Margin = new System.Windows.Forms.Padding(4);
             this.metroTabPage4.Name = "metroTabPage4";
             this.metroTabPage4.Size = new System.Drawing.Size(764, 438);
             this.metroTabPage4.TabIndex = 3;
@@ -491,7 +492,7 @@
             // 
             this.uninstallButton.FontSize = MetroFramework.MetroButtonSize.Medium;
             this.uninstallButton.Location = new System.Drawing.Point(20, 378);
-            this.uninstallButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uninstallButton.Margin = new System.Windows.Forms.Padding(4);
             this.uninstallButton.Name = "uninstallButton";
             this.uninstallButton.Size = new System.Drawing.Size(200, 47);
             this.uninstallButton.TabIndex = 10;
@@ -505,10 +506,10 @@
             // 
             // 
             this.logTextBox.CustomButton.Image = null;
-            this.logTextBox.CustomButton.Location = new System.Drawing.Point(771, 1);
-            this.logTextBox.CustomButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.logTextBox.CustomButton.Location = new System.Drawing.Point(578, 1);
+            this.logTextBox.CustomButton.Margin = new System.Windows.Forms.Padding(5);
             this.logTextBox.CustomButton.Name = "";
-            this.logTextBox.CustomButton.Size = new System.Drawing.Size(183, 169);
+            this.logTextBox.CustomButton.Size = new System.Drawing.Size(137, 137);
             this.logTextBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.logTextBox.CustomButton.TabIndex = 1;
             this.logTextBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -517,7 +518,7 @@
             this.logTextBox.Lines = new string[] {
         "대기중..."};
             this.logTextBox.Location = new System.Drawing.Point(20, 218);
-            this.logTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.logTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.logTextBox.MaxLength = 32767;
             this.logTextBox.Multiline = true;
             this.logTextBox.Name = "logTextBox";
@@ -550,7 +551,7 @@
             // 
             this.patchButton.FontSize = MetroFramework.MetroButtonSize.Medium;
             this.patchButton.Location = new System.Drawing.Point(536, 378);
-            this.patchButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.patchButton.Margin = new System.Windows.Forms.Padding(4);
             this.patchButton.Name = "patchButton";
             this.patchButton.Size = new System.Drawing.Size(200, 47);
             this.patchButton.TabIndex = 6;
@@ -567,7 +568,7 @@
             this.metroPanel2.HorizontalScrollbarHighlightOnWheel = false;
             this.metroPanel2.HorizontalScrollbarSize = 12;
             this.metroPanel2.Location = new System.Drawing.Point(19, 46);
-            this.metroPanel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.metroPanel2.Margin = new System.Windows.Forms.Padding(4);
             this.metroPanel2.Name = "metroPanel2";
             this.metroPanel2.Size = new System.Drawing.Size(717, 134);
             this.metroPanel2.TabIndex = 5;
@@ -618,7 +619,7 @@
             this.Controls.Add(this.metroLabel11);
             this.Controls.Add(this.metroTabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Install";
             this.Padding = new System.Windows.Forms.Padding(27, 74, 27, 25);
             this.Style = MetroFramework.MetroColorStyle.Silver;

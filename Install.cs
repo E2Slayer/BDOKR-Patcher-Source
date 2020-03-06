@@ -163,6 +163,7 @@ namespace BDOKRPatch
             "양진체",
             "빙그래체2 Bold",
             "배민 을지로체"
+            "폰트선택안함"
              */
             switch (FontComboBox.SelectedIndex)
             {
@@ -183,6 +184,9 @@ namespace BDOKRPatch
                     break;
                 case 5: // bemin
                     fontPreview.Image = Properties.Resources.bemin;
+                    break;
+                case 6:
+                    fontPreview.Image = null;
                     break;
             }
         }
@@ -447,10 +451,11 @@ namespace BDOKRPatch
                 logTextBox.AppendText(er.ToString());
             }
 
-
-            Download(fontURL, currentLocation + @"\prestringtable\font\pearl.ttf", "pearl.ttf");
-            qt.Enqueue(true);
-
+            if (FontComboBox.SelectedIndex != 6)
+            {
+                Download(fontURL, currentLocation + @"\prestringtable\font\pearl.ttf", "pearl.ttf");
+                qt.Enqueue(true);
+            }
             //Task.Delay(1000).Wait();
 
 
